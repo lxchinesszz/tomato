@@ -1,4 +1,4 @@
-![tomato banner](https://img.springlearn.cn/blog/learn_1577637906000.png)
+![tomato-banner](https://img.springlearn.cn/blog/learn_1577637906000.png)
 
 ### Tomato
 
