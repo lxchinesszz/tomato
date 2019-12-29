@@ -41,3 +41,4 @@ public interface Idempotent {
     <E extends Throwable> void idempotent(String uniqueCode, Long millisecond, Supplier<? extends E> exceptionSupplier) throws E;
 }
 ```
+
