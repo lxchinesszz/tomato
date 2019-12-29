@@ -13,13 +13,13 @@
 
 ### 均匀请求内 
 
-![](https://img.springlearn.cn/blog/learn_1577636813000.png)
+![幂等范围](https://img.springlearn.cn/blog/learn_1577636813000.png)
 
 ### 范围控制
 
 每次请求设置当前请求的幂等范围,范围内请求均会被拦截
 
-![](https://img.springlearn.cn/blog/learn_1577636874000.png)
+![范围限制](https://img.springlearn.cn/blog/learn_1577636874000.png)
 
 
 
@@ -43,3 +43,4 @@ public interface Idempotent {
     <E extends Throwable> void idempotent(String uniqueCode, Long millisecond, Supplier<? extends E> exceptionSupplier) throws E;
 }
 ```
+
