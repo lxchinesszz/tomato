@@ -8,11 +8,11 @@
     <artifactId>tomato</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
+<!--    <parent>-->
+<!--        <groupId>org.sonatype.oss</groupId>-->
+<!--        <artifactId>oss-parent</artifactId>-->
+<!--        <version>7</version>-->
+<!--    </parent>-->
 
 
     <properties>
@@ -26,24 +26,24 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <name>liuxin</name>
-            <email>lxchinesszz@163.com</email>
-            <roles>
-                <role>developer</role>
-            </roles>
-            <timezone>+8</timezone>
-        </developer>
-    </developers>
+<!--    <developers>-->
+<!--        <developer>-->
+<!--            <name>liuxin</name>-->
+<!--            <email>lxchinesszz@163.com</email>-->
+<!--            <roles>-->
+<!--                <role>developer</role>-->
+<!--            </roles>-->
+<!--            <timezone>+8</timezone>-->
+<!--        </developer>-->
+<!--    </developers>-->
 
 
-    <scm>
-        <connection>scm:git:https://github.com/lxchinesszz/tomato.git</connection>
-        <developerConnection>scm:git:https://github.com/lxchinesszz/tomato.git</developerConnection>
-        <url>https://github.com/lxchinesszz/tomato</url>
-        <tag>v${project.version}</tag>
-    </scm>
+<!--    <scm>-->
+<!--        <connection>scm:git:https://github.com/lxchinesszz/tomato.git</connection>-->
+<!--        <developerConnection>scm:git:https://github.com/lxchinesszz/tomato.git</developerConnection>-->
+<!--        <url>https://github.com/lxchinesszz/tomato</url>-->
+<!--        <tag>v${project.version}</tag>-->
+<!--    </scm>-->
 
     <dependencies>
 
@@ -70,17 +70,17 @@
     <build>
         <plugins>
 
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.3</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.sonatype.plugins</groupId>-->
+<!--                <artifactId>nexus-staging-maven-plugin</artifactId>-->
+<!--                <version>1.6.3</version>-->
+<!--                <extensions>true</extensions>-->
+<!--                <configuration>-->
+<!--                    <serverId>ossrh</serverId>-->
+<!--                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+<!--                    <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -93,47 +93,47 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                <version>2.10.3</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>attach-javadocs</id>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-source-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>attach-sources</id>-->
+<!--                        <goals>-->
+<!--                            <goal>jar-no-fork</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-gpg-plugin</artifactId>-->
+<!--                <version>1.6</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>sign-artifacts</id>-->
+<!--                        <phase>verify</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>sign</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
