@@ -1,5 +1,7 @@
 package com.github.tomato.annotation;
 
+import org.springframework.core.annotation.AliasFor;
+
 import java.lang.annotation.*;
 
 /**
@@ -10,5 +12,6 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER})
 @Documented
 public @interface TomatoTokenFrom {
+    @AliasFor
     String value() default "";
 }

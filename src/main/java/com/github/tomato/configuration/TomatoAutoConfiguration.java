@@ -1,10 +1,11 @@
 package com.github.tomato.configuration;
 
 import com.github.tomato.core.*;
+import com.github.tomato.support.DefaultRepeatToInterceptSupport;
 import com.github.tomato.support.DefaultTokenProviderSupport;
+import com.github.tomato.support.RepeatToInterceptSupport;
 import com.github.tomato.support.TokenProviderSupport;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -19,7 +20,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 @Slf4j
 @Configuration
 @ConditionalOnClass(RedisAutoConfiguration.class)
-@ConditionalOnBean(StringRedisTemplate.class)
 public class TomatoAutoConfiguration {
 
 
@@ -39,8 +39,20 @@ public class TomatoAutoConfiguration {
         return new DefaultTokenProviderSupport();
     }
 
+
+    /**
+     * 如果已经存在实现bean就不默认实现
+     *
+     * @return TokenProviderSupport
+     */
     @Bean
-    public TomatoInterceptor tomatoInterceptor(Idempotent idempotent, TokenProviderSupport tokenProviderSupport) {
-        return new TomatoInterceptor(idempotent, tokenProviderSupport);
+    @ConditionalOnMissingBean(RepeatToInterceptSupport.class)
+    public RepeatToInterceptSupport toInterceptSupport(){
+        return new DefaultRepeatToInterceptSupport();
+    }
+
+    @Bean
+    public TomatoInterceptor tomatoInterceptor(Idempotent idempotent, TokenProviderSupport tokenProviderSupport,RepeatToInterceptSupport repeatToInterceptSupport) {
+        return new TomatoInterceptor(idempotent, tokenProviderSupport,repeatToInterceptSupport);
     }
 }

@@ -60,9 +60,9 @@ public abstract class AbstractIdempotent implements Idempotent {
     /**
      * 固定窗口
      *
-     * @param uniqueCode  唯一键
-     * @param millisecond 毫秒
-     * @return boolean
+     * @param uniqueCode        唯一键
+     * @param millisecond       毫秒
+     * @param exceptionSupplier 指定要抛的异常
      */
     @Override
     public <E extends Throwable> void fixeddempotent(String uniqueCode, Long millisecond, Supplier<? extends E> exceptionSupplier) throws E {

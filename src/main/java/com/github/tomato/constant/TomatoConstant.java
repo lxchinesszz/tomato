@@ -6,4 +6,6 @@ package com.github.tomato.constant;
  */
 public class TomatoConstant {
     public static final String DEFAULT_VALUE = "1";
+
+    public static final String TOKEN = "Token";
 }

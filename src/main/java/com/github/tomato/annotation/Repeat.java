@@ -14,9 +14,33 @@ import java.lang.annotation.*;
 @Documented
 public @interface Repeat {
 
+    /**
+     * 控制范围
+     *
+     * @return long
+     */
     @AliasFor("value")
-    long scope() default 100;
+    long scope() default 300;
 
+    /**
+     * 控制范围
+     *
+     * @return long
+     */
     @AliasFor("scope")
-    long value() default 100;
+    long value() default 300;
+
+    /**
+     * 返回指定异常
+     *
+     * @return Class
+     */
+    Class<? extends Exception> throwable() default RuntimeException.class;
+
+    /**
+     * 错误提示
+     *
+     * @return 错误提示
+     */
+    String message() default "repeat submit";
 }
