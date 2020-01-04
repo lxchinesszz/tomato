@@ -20,11 +20,12 @@ public class RedisIdempotentTemplate extends AbstractIdempotent {
 
     @Override
     public boolean doIdempotent(String uniqueCode, Long millisecond) {
-        return redisTemplate.opsForHash().putIfAbsent(uniqueCode, uniqueCode, TomatoConstant.DEFAULT_VALUE);
+        Boolean setIfAbsent = redisTemplate.opsForValue().setIfAbsent(uniqueCode, TomatoConstant.DEFAULT_VALUE);
+        return setIfAbsent != null ? setIfAbsent : false;
     }
 
     @Override
     public void expire(String uniqueCode, Long millisecond) {
-        redisTemplate.expire(uniqueCode,millisecond, TimeUnit.MILLISECONDS);
+        redisTemplate.expire(uniqueCode, millisecond, TimeUnit.MILLISECONDS);
     }
 }

@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 public abstract class AbstractIdempotent implements Idempotent {
 
     /**
-     * 幂等处理
+     * 滑动窗口
      *
      * @param uniqueCode  唯一键
      * @param millisecond 毫秒
@@ -21,7 +21,7 @@ public abstract class AbstractIdempotent implements Idempotent {
      */
     @Override
     public boolean idempotent(String uniqueCode, Long millisecond) {
-        String uniqueToken = Md5Tools.md5(uniqueCode);
+        String uniqueToken = isolationAlgorithmToken(uniqueCode);
         log.debug("Idempotent: key[" + uniqueToken + "],expire:[" + millisecond + "ms]");
         boolean idempotent = doIdempotent(uniqueToken, millisecond);
         expire(uniqueToken, millisecond);
@@ -29,7 +29,7 @@ public abstract class AbstractIdempotent implements Idempotent {
     }
 
     /**
-     * 幂等处理
+     * 滑动窗口
      *
      * @param uniqueCode        唯一键
      * @param millisecond       毫秒
@@ -40,6 +40,46 @@ public abstract class AbstractIdempotent implements Idempotent {
         if (!idempotent(uniqueCode, millisecond)) {
             throw exceptionSupplier.get();
         }
+    }
+
+
+    /**
+     * 固定窗口
+     *
+     * @param uniqueCode  唯一键
+     * @param millisecond 毫秒
+     * @return boolean
+     */
+    @Override
+    public boolean fixedIdempotent(String uniqueCode, Long millisecond) {
+        String uniqueToken = isolationAlgorithmToken(uniqueCode);
+        log.debug("Idempotent: key[" + uniqueToken + "],expire:[" + millisecond + "ms]");
+        return doIdempotent(uniqueToken, millisecond);
+    }
+
+    /**
+     * 固定窗口
+     *
+     * @param uniqueCode  唯一键
+     * @param millisecond 毫秒
+     * @return boolean
+     */
+    @Override
+    public <E extends Throwable> void fixeddempotent(String uniqueCode, Long millisecond, Supplier<? extends E> exceptionSupplier) throws E {
+        if (!fixedIdempotent(uniqueCode, millisecond)) {
+            throw exceptionSupplier.get();
+        }
+    }
+
+
+    /**
+     * 通过对唯一键进行处理,保证与业务数据进行隔离
+     *
+     * @param uniqueCode 明文唯一键
+     * @return String
+     */
+    private String isolationAlgorithmToken(String uniqueCode) {
+        return Md5Tools.md5(uniqueCode.trim());
     }
 
     /**
