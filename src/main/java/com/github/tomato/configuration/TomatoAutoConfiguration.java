@@ -22,6 +22,10 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 @ConditionalOnClass(RedisAutoConfiguration.class)
 public class TomatoAutoConfiguration {
 
+    @Bean
+    public TomatoListener listener(){
+        return new TomatoListener();
+    }
 
     @Bean
     public Idempotent idempotent(StringRedisTemplate redisTemplate) {

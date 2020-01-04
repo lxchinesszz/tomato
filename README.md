@@ -60,23 +60,30 @@
 #### 1.利用拦截器实现
 
 ```java
-//防重范围时间1000
-@Repeat(scope = 1000)
-public VoidResponse addWhite0(@TomatoToken String name) {
-        return VoidResponse.SUCCESS();
-}
+@Repeat
+    @GetMapping("/tt")
+    public String getUser(@TomatoToken String name) {
+        System.out.println(System.currentTimeMillis() + ":" + name);
+        String s = System.currentTimeMillis() + ":" + name;
+        return s;
+    }
 
-//如果是基本类型就直接用,如果是对象模式就从对象里面去取。
-@Repeat(scope = 1000)
-public VoidResponse addWhite1(@TomatoToken("name") TestDataRequest name) {
-        return VoidResponse.SUCCESS();
-}
 
-//从表单中获取
-@Repeat(scope = 1000)
-public VoidResponse addWhite2(@TomatoTokenFrom("name")HttpServletRequest request) {
-        return VoidResponse.SUCCESS();
-}
+    @Repeat
+    @PostMapping(value = "/post", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String postUserName(@TomatoToken("userName") @RequestBody UserRequest userRequest) {
+        System.out.println(System.currentTimeMillis() + ":" + userRequest.getUserName());
+        String s = System.currentTimeMillis() + ":" + userRequest.getUserName();
+        return s;
+    }
+
+    @Repeat(throwable = NullPointerException.class, message = "禁止重复提交")
+    @PostMapping(value = "/form")
+    public String postUserName(@TomatoToken("userName") HttpServletRequest userRequest) {
+        System.out.println(System.currentTimeMillis() + ":" + userRequest.getParameter("userName"));
+        String s = System.currentTimeMillis() + ":" + userRequest.getParameter("userName");
+        return s;
+    }
 ```
 
 #### 2.硬编码实现
@@ -88,3 +95,7 @@ public VoidResponse addWhite(String name) {
 }
 ```
 
+
+### 验证是否启动成功
+
+![](https://img.springlearn.cn/blog/learn_1578154596000.png)
