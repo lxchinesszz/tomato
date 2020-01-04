@@ -98,4 +98,5 @@ public VoidResponse addWhite(String name) {
 
 ### 验证是否启动成功
 
-![](https://img.springlearn.cn/blog/learn_1578154596000.png)
+
+<img src="https://img.springlearn.cn/blog/learn_1578154596000.png">
