@@ -45,5 +45,5 @@ public interface Idempotent {
      * @param <E>               异常泛型
      * @throws E 泛型
      */
-    <E extends Throwable> void fixeddempotent(String uniqueCode, Long millisecond, Supplier<? extends E> exceptionSupplier) throws E;
+    <E extends Throwable> void fixedIdempotent(String uniqueCode, Long millisecond, Supplier<? extends E> exceptionSupplier) throws E;
 }

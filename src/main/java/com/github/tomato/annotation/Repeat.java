@@ -1,5 +1,7 @@
 package com.github.tomato.annotation;
 
+import com.github.tomato.core.RepeatTypeEnum;
+import com.github.tomato.exception.RepeatOptException;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -35,7 +37,7 @@ public @interface Repeat {
      *
      * @return Class
      */
-    Class<? extends Exception> throwable() default RuntimeException.class;
+    Class<? extends Exception> throwable() default RepeatOptException.class;
 
     /**
      * 错误提示
@@ -43,4 +45,11 @@ public @interface Repeat {
      * @return 错误提示
      */
     String message() default "repeat submit";
+
+    /**
+     * 拦截策略(默认滑动窗口)
+     *
+     * @return RepeatTypeEnum
+     */
+    RepeatTypeEnum type() default RepeatTypeEnum.SLIDING_WINDOW;
 }

@@ -12,6 +12,8 @@ import java.util.function.Supplier;
 @Slf4j
 public abstract class AbstractIdempotent implements Idempotent {
 
+    private String prefix = "TMT_";
+
     /**
      * 滑动窗口
      *
@@ -54,7 +56,11 @@ public abstract class AbstractIdempotent implements Idempotent {
     public boolean fixedIdempotent(String uniqueCode, Long millisecond) {
         String uniqueToken = isolationAlgorithmToken(uniqueCode);
         log.debug("Idempotent: key[" + uniqueToken + "],expire:[" + millisecond + "ms]");
-        return doIdempotent(uniqueToken, millisecond);
+        boolean idempotent = doIdempotent(uniqueToken, millisecond);
+        if (idempotent) {
+            expire(uniqueCode, millisecond);
+        }
+        return idempotent;
     }
 
     /**
@@ -65,7 +71,7 @@ public abstract class AbstractIdempotent implements Idempotent {
      * @param exceptionSupplier 指定要抛的异常
      */
     @Override
-    public <E extends Throwable> void fixeddempotent(String uniqueCode, Long millisecond, Supplier<? extends E> exceptionSupplier) throws E {
+    public <E extends Throwable> void fixedIdempotent(String uniqueCode, Long millisecond, Supplier<? extends E> exceptionSupplier) throws E {
         if (!fixedIdempotent(uniqueCode, millisecond)) {
             throw exceptionSupplier.get();
         }
@@ -79,7 +85,16 @@ public abstract class AbstractIdempotent implements Idempotent {
      * @return String
      */
     private String isolationAlgorithmToken(String uniqueCode) {
-        return Md5Tools.md5(uniqueCode.trim());
+        return prefix + Md5Tools.md5(uniqueCode.trim());
+    }
+
+    /**
+     * 允许子类重写改方法
+     *
+     * @param prefix 前缀
+     */
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
     /**

@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationListener;
  * @author liuxin
  * 2020-01-04 23:14
  */
-public class TomatoListener implements ApplicationListener<ApplicationEvent>, ApplicationContextAware {
+public class TomatoStartListener implements ApplicationListener<ApplicationEvent>, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 

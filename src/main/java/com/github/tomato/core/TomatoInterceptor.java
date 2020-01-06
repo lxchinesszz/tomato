@@ -36,8 +36,7 @@ public class TomatoInterceptor {
     public Object doAround(ProceedingJoinPoint pjp) {
         //1. 获取唯一键的获取方式
         Object[] args = pjp.getArgs();
-        Signature signature = pjp.getSignature();
-        Method method = findMethod(signature);
+        Method method = findMethod(pjp.getSignature());
         Repeat repeat = findRepeat(method);
         Object result = null;
         try {
@@ -47,7 +46,7 @@ public class TomatoInterceptor {
             //3. 唯一键键不存在,直接执行
             if (tomatoToken == null) {
                 result = pjp.proceed();
-            } else if (idempotent.idempotent(tomatoToken, repeat.scope())) {
+            } else if (idempotent(tomatoToken, repeat.scope(),repeat)) {
                 result = pjp.proceed();
             } else {
                 //防重之后交给用户来处理
@@ -66,6 +65,16 @@ public class TomatoInterceptor {
             StaticContext.clear();
         }
         return result;
+    }
+
+    public boolean idempotent(String tomatoToken, Long millisecond, Repeat repeat) {
+        RepeatTypeEnum typeEnum = repeat.type();
+        if (RepeatTypeEnum.FIXED_WINDOW == typeEnum) {
+            return idempotent.fixedIdempotent(tomatoToken, millisecond);
+        } else if (RepeatTypeEnum.SLIDING_WINDOW == typeEnum) {
+            return idempotent.idempotent(tomatoToken, millisecond);
+        }
+        return idempotent.idempotent(tomatoToken, millisecond);
     }
 
     private Method findMethod(Signature signature) {

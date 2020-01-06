@@ -23,8 +23,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 public class TomatoAutoConfiguration {
 
     @Bean
-    public TomatoListener listener(){
-        return new TomatoListener();
+    public TomatoStartListener listener(){
+        return new TomatoStartListener();
     }
 
     @Bean
