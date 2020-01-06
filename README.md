@@ -96,6 +96,27 @@ public VoidResponse addWhite(String name) {
 ```
 
 
-### 验证是否启动成功
+### 五、使用及验证是否启动成功
 
+#### 1. 加入依赖
+
+**Maven**
+
+```
+<dependency>
+  <groupId>com.github.lxchinesszz</groupId>
+  <artifactId>tomato-spring-boot-starter</artifactId>
+  <version>1.0.1.RELEASE</version>
+</dependency>
+```
+
+**Gradle**
+
+```
+implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
+```
+
+#### 2. 启用成功
+
+当出现tomato Logo即说明启用成功
 ![](https://img.springlearn.cn/blog/learn_1578154596000.png)
