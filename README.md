@@ -2,7 +2,7 @@
 ![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWcuc3ByaW5nbGVhcm4uY24vYmxvZy9sZWFybl8xNTc3NjM3OTA2MDAwLnBuZw?x-oss-process=image/format,png)
 
 
-### <span id="head1"> Tomato</span>
+### <span id="head1"> [Tomato Website](https://tomato.springlearn.cn)</span>
 
 ---
 ![](https://img.shields.io/badge/build-passing-brightgreen.svg) ![](https://img.shields.io/badge/license-Apache%202-blue.svg)
@@ -23,7 +23,7 @@
 - [ 四、代码演示](#head10)
 	- [ 1.利用拦截器实现](#head11)
 	- [ 2.硬编码实现](#head12)
-- [ 五、使用及验证是否启动成功](#head13)
+- [ 五、快速使用](#head13)
 	- [1. 加入依赖](#head14)
 	- [2. 启用成功](#head15)
 - [ 六、版本发布记录](#head16)
@@ -118,7 +118,9 @@ class Example{
 ```
 
 
-### <span id="head13"> 五、使用及验证是否启动成功</span>
+### <span id="head13"> 五、快速使用</span>
+
+![](https://img.springlearn.cn/blog/learn_1578324866000.png)
 
 #### <span id="head14">1. 加入依赖</span>
 
