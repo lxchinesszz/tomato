@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.function.Supplier;
 
 /**
+ * https://tomato.springlearn.cn/
  * @author liuxin
  * 2019-12-29 22:37
  */
@@ -26,7 +27,12 @@ public abstract class AbstractIdempotent implements Idempotent {
         String uniqueToken = isolationAlgorithmToken(uniqueCode);
         log.debug("Idempotent: key[" + uniqueToken + "],expire:[" + millisecond + "ms]");
         boolean idempotent = doIdempotent(uniqueToken, millisecond);
-        expire(uniqueToken, millisecond);
+        if (!idempotent){
+            //重复请求后,都会增加占用时间,以此来保证滑动窗口。只有当安全时间内没有请求,才会释放防重空间
+            //图例说明
+            //https://ss.csdn.net/p?https://upload-images.jianshu.io/upload_images/4279695-72b43f588ab828aa
+            expire(uniqueToken, millisecond);
+        }
         return idempotent;
     }
 
@@ -56,11 +62,7 @@ public abstract class AbstractIdempotent implements Idempotent {
     public boolean fixedIdempotent(String uniqueCode, Long millisecond) {
         String uniqueToken = isolationAlgorithmToken(uniqueCode);
         log.debug("Idempotent: key[" + uniqueToken + "],expire:[" + millisecond + "ms]");
-        boolean idempotent = doIdempotent(uniqueToken, millisecond);
-        if (idempotent) {
-            expire(uniqueCode, millisecond);
-        }
-        return idempotent;
+        return doIdempotent(uniqueToken, millisecond);
     }
 
     /**
@@ -108,7 +110,7 @@ public abstract class AbstractIdempotent implements Idempotent {
 
     /**
      * 过期key
-     *
+     * 对指定的key进行时间限制
      * @param uniqueToken 加密后的唯一键
      * @param millisecond 毫秒
      */

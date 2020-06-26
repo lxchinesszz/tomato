@@ -42,11 +42,11 @@ public class TomatoInterceptor {
         try {
             //2. 获取唯一键
             String tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
-            StaticContext.setToken(tomatoToken);
             //3. 唯一键键不存在,直接执行
             if (tomatoToken == null) {
                 result = pjp.proceed();
             } else if (idempotent(tomatoToken, repeat.scope(),repeat)) {
+                StaticContext.setToken(tomatoToken);
                 result = pjp.proceed();
             } else {
                 //防重之后交给用户来处理

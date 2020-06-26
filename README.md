@@ -158,3 +158,9 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 - `Repeat` 新增拦截策略
 - 代码逻辑精简, 增强扩展性
 - 增强 `StaticContext` 上下文,支持用户获取令牌值及令牌初始化参数
+
+**1.0.3-RELEASE**
+
+在此感谢@ruansheng与@lianbitangjin关于以下问题的发现,以及给出的建议。
+- fix bug "StaticContext.setToken(tomatoToken);"所导致的NPE问题
+- 过期时间设置更换原子性API

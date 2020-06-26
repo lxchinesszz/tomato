@@ -20,7 +20,7 @@ public class RedisIdempotentTemplate extends AbstractIdempotent {
 
     @Override
     public boolean doIdempotent(String uniqueCode, Long millisecond) {
-        Boolean setIfAbsent = redisTemplate.opsForValue().setIfAbsent(uniqueCode, TomatoConstant.DEFAULT_VALUE);
+        Boolean setIfAbsent = redisTemplate.opsForValue().setIfAbsent(uniqueCode, TomatoConstant.DEFAULT_VALUE, millisecond, TimeUnit.MILLISECONDS);
         return setIfAbsent != null ? setIfAbsent : false;
     }
 
