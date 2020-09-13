@@ -164,3 +164,7 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 在此感谢@ruansheng与@lianbitangjin关于以下问题的发现,以及给出的建议。
 - fix bug "StaticContext.setToken(tomatoToken);"所导致的NPE问题
 - 过期时间设置更换原子性API
+
+**1.0.4-RELEASE**
+
+- fix 异常因为aop代理而被吃掉的问题
