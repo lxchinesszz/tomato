@@ -1,6 +1,7 @@
 package com.github.tomato.core;
 
 import com.github.tomato.annotation.Repeat;
+import com.github.tomato.exception.RepeatOptException;
 import com.github.tomato.support.RepeatToInterceptSupport;
 import com.github.tomato.support.TokenProviderSupport;
 import com.github.tomato.util.StaticContext;
@@ -39,13 +40,14 @@ public class TomatoInterceptor {
         Method method = findMethod(pjp.getSignature());
         Repeat repeat = findRepeat(method);
         Object result = null;
+        Exception e;
         try {
             //2. 获取唯一键
             String tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
             //3. 唯一键键不存在,直接执行
             if (tomatoToken == null) {
                 result = pjp.proceed();
-            } else if (idempotent(tomatoToken, repeat.scope(),repeat)) {
+            } else if (idempotent(tomatoToken, repeat.scope(), repeat)) {
                 StaticContext.setToken(tomatoToken);
                 result = pjp.proceed();
             } else {
@@ -55,12 +57,16 @@ public class TomatoInterceptor {
                     Class<? extends Exception> throwable = repeat.throwable();
                     Constructor<? extends Exception> declaredConstructor = throwable.getDeclaredConstructor(String.class);
                     String message = repeat.message();
-                    throw declaredConstructor.newInstance(message);
+                    e = declaredConstructor.newInstance(message);
+                    throw e;
                 }
                 result = proceed;
             }
+        } catch (RepeatOptException rop) {
+            throw rop;
         } catch (Throwable throwable) {
             throwable.printStackTrace();
+            throw new RuntimeException(throwable);
         } finally {
             StaticContext.clear();
         }
