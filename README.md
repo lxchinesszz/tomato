@@ -110,8 +110,12 @@ class Example{
 
 ```java
 class Example{
+     
+    @Autowired
+    private Idempotent idempotent;
+
     public VoidResponse addWhite(String name) {
-  			Idempotent.idempotent(name,1000,()->new RuntimeException("重复提交"))
+  			idempotent.idempotent(name,1000,()->new RuntimeException("重复提交"))
         return VoidResponse.SUCCESS();
     }
 }
