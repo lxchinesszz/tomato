@@ -12,7 +12,7 @@ public class BaseTypeTools {
      * @param incString 是否包括string判断,如果为true就认为string也是基本数据类型
      * @return boolean
      */
-    public static boolean isBaseType(Class className, boolean incString) {
+    public static boolean isBaseType(Class<?> className, boolean incString) {
         if (incString && className.equals(String.class)) {
             return true;
         }

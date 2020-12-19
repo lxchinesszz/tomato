@@ -18,6 +18,12 @@ public class RedisIdempotentTemplate extends AbstractIdempotent {
         this.redisTemplate = redisTemplate;
     }
 
+    public RedisIdempotentTemplate(StringRedisTemplate redisTemplate, String prefix) {
+        this.redisTemplate = redisTemplate;
+        setPrefix(prefix);
+    }
+
+
     @Override
     public boolean doIdempotent(String uniqueCode, Long millisecond) {
         Boolean setIfAbsent = redisTemplate.opsForValue().setIfAbsent(uniqueCode, TomatoConstant.DEFAULT_VALUE, millisecond, TimeUnit.MILLISECONDS);

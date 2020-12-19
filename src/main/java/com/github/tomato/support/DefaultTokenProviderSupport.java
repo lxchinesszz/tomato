@@ -2,8 +2,10 @@ package com.github.tomato.support;
 
 import com.github.tomato.annotation.TomatoToken;
 import com.github.tomato.util.BaseTypeTools;
+import com.github.tomato.util.ExpressionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ReflectionUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -18,40 +20,36 @@ public class DefaultTokenProviderSupport extends AbstractTokenProvider {
 
 
     @Override
-    public String findTomatoToken(Method method, Object[] args) throws Exception {
+    public String findTomatoToken(Method method, Object[] args) {
         Parameter[] parameters = method.getParameters();
         for (int i = 0; i < method.getParameterCount(); i++) {
             Parameter parameter = parameters[i];
             Object arg = args[i];
-            if (arg == null) continue;
+            if (arg == null) {
+                continue;
+            }
             AbstractTokenProvider.ParameterType parameterType = typeArgParameter(arg);
             TomatoToken tomatoToken = findTomatoToken(parameter);
-            if (tomatoToken == null) continue;
-            String tokenName = tomatoToken.value();
+            if (tomatoToken == null) {
+                continue;
+            }
+            String tokenElValue = tomatoToken.value();
             switch (parameterType) {
                 case HTTP_REQUEST:
-                    return ((HttpServletRequest) arg).getParameter(tokenName);
+                    // 1. 如果是request对象,直接当做属性查询
+                    return ((HttpServletRequest) arg).getParameter(tokenElValue);
                 case OBJECT:
-                    Class<?> argClass = arg.getClass();
-                    Field field = classFieldCache.get(argClass);
-                    if (field == null) {
-                        field = ReflectionUtils.findField(argClass, tokenName);
-                        if (field == null) {
-                            String errorMsg = String.format("Don't find %s in %s", tokenName, argClass);
-                            throw new RuntimeException(errorMsg);
-                        }
-                        if (!field.isAccessible()) {
-                            field.setAccessible(true);
-                        }
-                        classFieldCache.put(argClass, field);
+                    // 2. 如果是对象类型,使用SpringEL表达式解析
+                    Object tokenValue = ExpressionUtils.getElValue(tokenElValue, arg);
+                    if (tokenValue == null) {
+                        continue;
                     }
-                    Object tokenFieldValue = field.get(arg);
-                    if (tokenFieldValue == null) continue;
-                    if (!BaseTypeTools.isBaseType(tokenFieldValue.getClass(), true)) {
+                    // 3. 如果不是基本类型直接报错
+                    if (!BaseTypeTools.isBaseType(tokenValue.getClass(), true)) {
                         //如果不是基本类型错误提示
                         throw new RuntimeException("Token may be base type,not is object type");
                     }
-                    return String.valueOf(tokenFieldValue);
+                    return String.valueOf(tokenValue);
                 case BASE_TYPE:
                     return String.valueOf(arg);
                 default:

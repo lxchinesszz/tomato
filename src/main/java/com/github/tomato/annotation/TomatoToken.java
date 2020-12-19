@@ -10,5 +10,11 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER})
 @Documented
 public @interface TomatoToken {
+
+    /**
+     * 支持使用el表达式解析token
+     *
+     * @return String
+     */
     String value() default "";
 }

@@ -103,6 +103,27 @@ class Example{
             String s = System.currentTimeMillis() + ":" + userRequest.getParameter("userName");
             return s;
         }
+        
+        
+        @PostMapping("/el/phoneNo")
+        @Repeat
+        public String elName(@TomatoToken("phone.phoneNo") @RequestBody User user) {
+             System.out.println(user);
+             // 当前TOKEN:17601234466
+             return "当前TOKEN:" + StaticContext.getToken();
+         }
+}
+```
+
+**User模型结构**
+```json
+{
+
+    "name":"Tomato",
+    "age": 27,
+    "phone":{
+        "phoneNo": "17601234466"
+    }
 }
 ```
 
@@ -172,3 +193,8 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 **1.0.4-RELEASE**
 
 - fix 异常因为aop代理而被吃掉的问题
+
+**1.0.5-RELEASE**
+
+在此感谢@mostcool提出的宝贵建议
+- 支持使用el表达式,获取幂等建
