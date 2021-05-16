@@ -142,6 +142,38 @@ class Example{
 }
 ```
 
+#### <span id="head12"> 3.支持SpringEL表达公式</span>
+
+[SpringEL表达式](https://blog.springlearn.cn/posts/10828/)
+
+``` 
+    @Test
+    public void testExample() {
+        // 表达式解析器
+        User liuxin = new User("liuxin", 23,new Phone("123213321"));
+
+        // 执行toString方法
+        System.out.println(ExpressionUtils.getElValue("toString()", liuxin));
+        System.out.println(ExpressionUtils.getThisElValue("${name}", liuxin));
+        // 支持从根元素获取数据
+        System.out.println(ExpressionUtils.getThisElValue("S_AO:${name}", liuxin));
+        System.out.println(ExpressionUtils.getThisElValue("${name + '_后缀'}", liuxin));
+        // 支持从变量元素获取数据，根元素 = c  #是变量，$是模板占位符
+        System.out.println(ExpressionUtils.getThisElValue("${#c.name}, ${#c.age}", liuxin));
+        // 获取toString方法
+        System.out.println(ExpressionUtils.getThisElValue("${#c.toString()}", liuxin));
+        // 获取值并处理
+        System.out.println(ExpressionUtils.getThisElValue("${#c.age +'-'+ #c.age}", liuxin));
+        // 获取值,并通过方法计算
+        System.out.println(ExpressionUtils.getThisElValue("${T(Integer).parseInt(#c.age + 1)}", liuxin));
+        // 计算哈希值
+        System.out.println(ExpressionUtils.getThisElValue("${T(com.github.tomato.support.DefaultTokenProviderSupportTest).hash(#c.age + 1)}", liuxin));
+
+        System.out.println(ExpressionUtils.getThisElValue("${T(com.github.tomato.support.DefaultTokenProviderSupportTest).json(#c)}", liuxin));
+
+    }
+```
+
 
 ### <span id="head13"> 五、快速使用</span>
 
