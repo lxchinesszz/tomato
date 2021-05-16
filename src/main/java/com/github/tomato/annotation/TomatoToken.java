@@ -12,6 +12,13 @@ import java.lang.annotation.*;
 public @interface TomatoToken {
 
     /**
+     * http方式的不能使用el表达是,如果要添加前缀就在这里设置
+     *
+     * @return String
+     */
+    String prefix() default "";
+
+    /**
      * 支持使用el表达式解析token
      *
      * @return String

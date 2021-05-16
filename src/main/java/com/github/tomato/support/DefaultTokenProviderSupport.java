@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Objects;
 
 /**
  * @author liuxin
@@ -28,7 +29,7 @@ public class DefaultTokenProviderSupport extends AbstractTokenProvider {
             if (arg == null) {
                 continue;
             }
-            AbstractTokenProvider.ParameterType parameterType = typeArgParameter(arg);
+            ParameterType parameterType = typeArgParameter(arg);
             TomatoToken tomatoToken = findTomatoToken(parameter);
             if (tomatoToken == null) {
                 continue;
@@ -37,10 +38,11 @@ public class DefaultTokenProviderSupport extends AbstractTokenProvider {
             switch (parameterType) {
                 case HTTP_REQUEST:
                     // 1. 如果是request对象,直接当做属性查询
-                    return ((HttpServletRequest) arg).getParameter(tokenElValue);
+                    String requestToken = ((HttpServletRequest) arg).getParameter(tokenElValue);
+                    return prefixToken(requestToken, tomatoToken.prefix());
                 case OBJECT:
                     // 2. 如果是对象类型,使用SpringEL表达式解析
-                    Object tokenValue = ExpressionUtils.getElValue(tokenElValue, arg);
+                    Object tokenValue = ExpressionUtils.getThisElValue(tokenElValue, arg);
                     if (tokenValue == null) {
                         continue;
                     }
@@ -51,11 +53,19 @@ public class DefaultTokenProviderSupport extends AbstractTokenProvider {
                     }
                     return String.valueOf(tokenValue);
                 case BASE_TYPE:
-                    return String.valueOf(arg);
+                    return prefixToken(String.valueOf(arg), tomatoToken.prefix());
                 default:
                     break;
             }
         }
         return null;
+    }
+
+    private static String prefixToken(Object arg, String prefix) {
+        if (Objects.isNull(arg)) {
+            return null;
+        } else {
+            return prefix + String.valueOf(arg);
+        }
     }
 }

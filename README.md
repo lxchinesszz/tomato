@@ -198,3 +198,8 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 
 在此感谢@mostcool提出的宝贵建议
 - 支持使用el表达式,获取幂等建
+
+**1.0.6-RELEASE**
+
+- 支持SpringEL表达式,兼容原有语法的基础上支持更加丰富的语法
+- 代码性能优化

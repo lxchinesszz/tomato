@@ -1,16 +1,23 @@
 package com.github.tomato.support;
 
-import junit.framework.TestCase;
+import com.github.tomato.annotation.Repeat;
+import com.github.tomato.annotation.TomatoToken;
+import org.junit.Test;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.mock.web.MockHttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * @author liuxin
  * 2020/12/19 8:50 下午
  */
-public class DefaultTokenProviderSupportTest extends TestCase {
+public class DefaultTokenProviderSupportTest {
 
 
     private Object parser(String el) {
@@ -37,8 +44,25 @@ public class DefaultTokenProviderSupportTest extends TestCase {
     /**
      * 解析手机号
      */
-    public void testSpringEl2() {
+    @Test
+    public void testSpringEl2() throws Exception {
         System.out.println(parser("phone.phoneNo"));
     }
+
+    /**
+     * 注意示例中的方法都要是静态公有属性
+     *
+     * @param arg 任意对象
+     * @return 返回值
+     */
+    public static Integer hash(Object arg) {
+        return Objects.hash(arg);
+    }
+
+    public static String json(Object arg){
+        return Objects.toString(arg) + "?";
+    }
+
+
 
 }

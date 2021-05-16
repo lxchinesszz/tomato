@@ -16,11 +16,18 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class AbstractTokenProvider implements TokenProviderSupport {
 
-    protected static Map<Class, Field> classFieldCache = new ConcurrentHashMap<>();
-
     enum ParameterType {
+        /**
+         * 基本类型
+         */
         BASE_TYPE,
+        /**
+         * 对象类型
+         */
         OBJECT,
+        /**
+         * http请求
+         */
         HTTP_REQUEST
     }
 
