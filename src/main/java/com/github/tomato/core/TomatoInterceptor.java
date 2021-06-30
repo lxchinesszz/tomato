@@ -10,9 +10,11 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * 拦截器拦截被幂等的接口
@@ -37,20 +39,21 @@ public class TomatoInterceptor {
         this.interceptSupport = interceptSupport;
     }
 
-    @Around("@annotation(repeat)")
-    public Object doAround(ProceedingJoinPoint pjp, Repeat repeat) {
+    @Around("@annotation(com.github.tomato.annotation.Repeat)")
+    public Object doAround(ProceedingJoinPoint pjp) {
         //1. 获取唯一键的获取方式
         Object[] args = pjp.getArgs();
         Method method = findMethod(pjp.getSignature());
+        Repeat repeat = AnnotationUtils.getAnnotation(method, Repeat.class);
         Object result;
         Exception e;
         try {
             //2. 获取唯一键
             String tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
             //3. 唯一键键不存在,直接执行
-            if (tomatoToken == null) {
+            if (tomatoToken == null || Objects.isNull(repeat)) {
                 result = pjp.proceed();
-            } else if (idempotent(tomatoToken, repeat.scope(), repeat)) {
+            } else if (idempotent(tomatoToken,repeat.scope(), repeat)) {
                 StaticContext.setToken(tomatoToken);
                 result = pjp.proceed();
             } else {

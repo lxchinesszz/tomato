@@ -235,3 +235,8 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 
 - 支持SpringEL表达式,兼容原有语法的基础上支持更加丰富的语法
 - 代码性能优化
+
+**1.0.7-RELEASE**
+
+再此感谢foot80@163.com提供信息
+- 修复Repeat上,@AliasFor注解失效问题
