@@ -7,7 +7,7 @@
 
     <groupId>com.github.lxchinesszz</groupId>
     <artifactId>tomato-spring-boot-starter</artifactId>
-    <version>1.0.7.RELEASE</version>
+    <version>1.0.8.RELEASE</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
