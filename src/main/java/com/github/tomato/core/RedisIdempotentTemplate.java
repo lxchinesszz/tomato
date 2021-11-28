@@ -34,4 +34,10 @@ public class RedisIdempotentTemplate extends AbstractIdempotent {
     public void expire(String uniqueCode, Long millisecond) {
         redisTemplate.expire(uniqueCode, millisecond, TimeUnit.MILLISECONDS);
     }
+
+    @Override
+    public boolean delKey(String uniqueToken) {
+        Boolean delete = redisTemplate.opsForValue().getOperations().delete(uniqueToken);
+        return delete != null ? delete : false;
+    }
 }

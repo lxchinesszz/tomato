@@ -240,3 +240,10 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 
 再此感谢foot80@163.com提供信息
 - 修复Repeat上,@AliasFor注解失效问题
+
+**1.0.8-RELEASE**
+
+- 精确幂等拦截时间,对方法+本次请求加锁,方法锁未失效前,同样拦截。
+  解决在耗时方法上进行幂等拦截,请求锁长时间失效,导致拦截失败问题。
+- Repeat 新增方法锁耗时,默认(60*1000)ms
+- 修改策略,幂等键为空场景直接阻断告警(多半是开发者使用错误导致)

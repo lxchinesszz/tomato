@@ -37,6 +37,20 @@ public abstract class AbstractIdempotent implements Idempotent {
         return idempotent;
     }
 
+
+    /**
+     * 删除幂等键
+     *
+     * @param uniqueCode 唯一码
+     * @return boolean
+     */
+    @Override
+    public boolean delIdempotent(String uniqueCode) {
+        String uniqueToken = isolationAlgorithmToken(uniqueCode);
+        log.debug("Del Idempotent: key[" + uniqueToken + "]");
+        return delKey(uniqueToken);
+    }
+
     /**
      * 滑动窗口
      *
@@ -117,4 +131,12 @@ public abstract class AbstractIdempotent implements Idempotent {
      * @param millisecond 毫秒
      */
     public abstract void expire(String uniqueToken, Long millisecond);
+
+
+    /**
+     * 删除key
+     *
+     * @param uniqueToken 加密后的唯一键
+     */
+    public abstract boolean delKey(String uniqueToken);
 }

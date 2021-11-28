@@ -17,7 +17,18 @@ public interface Idempotent {
      */
     boolean idempotent(String uniqueCode, Long millisecond);
 
+
     /**
+     * 删除幂等键
+     *
+     * @param uniqueCode 唯一码
+     * @return Boolean
+     */
+    boolean delIdempotent(String uniqueCode);
+
+    /**
+     * 滑动窗口添加幂等,如果一场直接中断
+     *
      * @param uniqueCode        唯一码
      * @param millisecond       控制时间
      * @param exceptionSupplier 异常生成

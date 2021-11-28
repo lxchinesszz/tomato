@@ -52,4 +52,11 @@ public @interface Repeat {
      * @return RepeatTypeEnum
      */
     RepeatTypeEnum type() default RepeatTypeEnum.SLIDING_WINDOW;
+
+    /**
+     * 方法锁时间(ms)
+     *
+     * @return Long
+     */
+    long methodLock() default 60 * 1000;
 }

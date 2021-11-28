@@ -56,7 +56,7 @@ public class TomatoAutoConfiguration {
     }
 
     @Bean
-    public TomatoInterceptor tomatoInterceptor(Idempotent idempotent, TokenProviderSupport tokenProviderSupport,RepeatToInterceptSupport repeatToInterceptSupport) {
-        return new TomatoInterceptor(idempotent, tokenProviderSupport,repeatToInterceptSupport);
+    public TomatoV2Interceptor tomatoInterceptor(Idempotent idempotent, TokenProviderSupport tokenProviderSupport,RepeatToInterceptSupport repeatToInterceptSupport) {
+        return new TomatoV2Interceptor(idempotent, tokenProviderSupport,repeatToInterceptSupport);
     }
 }

@@ -1,6 +1,7 @@
 package com.github.tomato.core;
 
 import com.github.tomato.annotation.Repeat;
+import com.github.tomato.exception.ElSyntaxException;
 import com.github.tomato.exception.RepeatOptException;
 import com.github.tomato.support.RepeatToInterceptSupport;
 import com.github.tomato.support.TokenProviderSupport;
@@ -11,18 +12,22 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 拦截器拦截被幂等的接口
+ * 优化逻辑,解决方法执行耗时,导致幂等拦截失效。
  *
  * @author liuxin
  */
 @Aspect
-public class TomatoInterceptor {
+public class TomatoV2Interceptor {
 
     private Idempotent idempotent;
 
@@ -30,13 +35,17 @@ public class TomatoInterceptor {
 
     private RepeatToInterceptSupport interceptSupport;
 
-    public TomatoInterceptor() {
+    public TomatoV2Interceptor() {
     }
 
-    public TomatoInterceptor(Idempotent idempotent, TokenProviderSupport tokenProviderSupport, RepeatToInterceptSupport interceptSupport) {
+    public TomatoV2Interceptor(Idempotent idempotent, TokenProviderSupport tokenProviderSupport, RepeatToInterceptSupport interceptSupport) {
         this.idempotent = idempotent;
         this.tokenProviderSupport = tokenProviderSupport;
         this.interceptSupport = interceptSupport;
+    }
+
+    private String methodLockTomatoToken(Method method, String tomatoToken) {
+        return tomatoToken + method.getName();
     }
 
     @Around("@annotation(com.github.tomato.annotation.Repeat)")
@@ -47,13 +56,17 @@ public class TomatoInterceptor {
         Repeat repeat = AnnotationUtils.getAnnotation(method, Repeat.class);
         Object result;
         Exception e;
+        String tomatoToken = "";
         try {
             //2. 获取唯一键
-            String tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
+            tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
+            // 如果为空直接报错
+            if (StringUtils.isEmpty(tomatoToken) || Objects.isNull(repeat)) {
+                throw new ElSyntaxException("el语法错误:[" + Arrays.asList(args) + "]");
+            }
             //3. 唯一键键不存在,直接执行
-            if (tomatoToken == null || Objects.isNull(repeat)) {
-                result = pjp.proceed();
-            } else if (idempotent(tomatoToken,repeat.scope(), repeat)) {
+            if (idempotent(methodLockTomatoToken(method, tomatoToken), repeat.methodLock(), repeat)
+                    && idempotent(tomatoToken, repeat.scope(), repeat)) {
                 StaticContext.setToken(tomatoToken);
                 result = pjp.proceed();
             } else {
@@ -75,6 +88,10 @@ public class TomatoInterceptor {
             throw new RuntimeException(throwable);
         } finally {
             StaticContext.clear();
+            if (!StringUtils.isEmpty(tomatoToken)) {
+                // 移除本次方法锁
+                idempotent.delIdempotent(methodLockTomatoToken(method, tomatoToken));
+            }
         }
         return result;
     }
