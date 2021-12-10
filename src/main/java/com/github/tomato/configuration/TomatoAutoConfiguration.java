@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
+ * 基于Spring.factories实现自动配置
+ *
  * @author liuxin
  * 2019-12-29 22:02
  */
@@ -23,7 +25,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 public class TomatoAutoConfiguration {
 
     @Bean
-    public TomatoStartListener listener(){
+    public TomatoStartListener listener() {
         return new TomatoStartListener();
     }
 
@@ -51,12 +53,12 @@ public class TomatoAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(RepeatToInterceptSupport.class)
-    public RepeatToInterceptSupport toInterceptSupport(){
+    public RepeatToInterceptSupport toInterceptSupport() {
         return new DefaultRepeatToInterceptSupport();
     }
 
     @Bean
-    public TomatoV2Interceptor tomatoInterceptor(Idempotent idempotent, TokenProviderSupport tokenProviderSupport,RepeatToInterceptSupport repeatToInterceptSupport) {
-        return new TomatoV2Interceptor(idempotent, tokenProviderSupport,repeatToInterceptSupport);
+    public TomatoV2Interceptor tomatoInterceptor(Idempotent idempotent, TokenProviderSupport tokenProviderSupport, RepeatToInterceptSupport repeatToInterceptSupport) {
+        return new TomatoV2Interceptor(idempotent, tokenProviderSupport, repeatToInterceptSupport);
     }
 }
