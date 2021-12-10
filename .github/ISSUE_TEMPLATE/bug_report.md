@@ -7,32 +7,23 @@ assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**描述错误**
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+清晰简明地描述错误是什么。
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**重现**
+重现行为的步骤：
+1. 去 '...'
+2. 点击 '....'
+3. 向下滚动到“....”
+4. 查看错误
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**预期行为**
+对预期发生的情况的清晰简明描述。
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+**屏幕截图**
+如果适用，请添加屏幕截图以帮助解释您的问题。
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
 
-**Additional context**
-Add any other context about the problem here.
+**附加上下文**
+在此处添加有关问题的任何其他上下文。
