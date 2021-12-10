@@ -1,10 +1,12 @@
 package com.github.tomato.exception;
 
 /**
+ * 当重复请求会默认抛出这个异常
+ *
  * @author liuxin
  * 2020-01-06 22:57
  */
-public class RepeatOptException extends RuntimeException{
+public class RepeatOptException extends RuntimeException {
 
     public RepeatOptException() {
         super();

@@ -11,20 +11,25 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 用于解析Controller中的请求信息将,不同的请求转换成指定的枚举
+ * eg: 基本类型、对象类型、HttpRequest类型
  * @author liuxin
  * 2020-01-04 21:14
  */
 public abstract class AbstractTokenProvider implements TokenProviderSupport {
 
     enum ParameterType {
+
         /**
          * 基本类型
          */
         BASE_TYPE,
+
         /**
          * 对象类型
          */
         OBJECT,
+
         /**
          * http请求
          */

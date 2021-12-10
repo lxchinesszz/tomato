@@ -7,6 +7,8 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 /**
+ * Spring El表达式工具的封装
+ *
  * @author liuxin
  * 2020/12/19 9:08 下午
  */

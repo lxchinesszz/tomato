@@ -6,18 +6,20 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 基于线程的上下文工具,用于获取每个线程中的幂等建键息
+ *
  * @author liuxin
  * 2020-01-04 22:11
  */
 public final class StaticContext {
 
-    private static final ThreadLocal<Map<String, String>> context = new InheritableThreadLocal<>();
+    private static final ThreadLocal<Map<String, String>> CONTEXT = new InheritableThreadLocal<>();
 
     private static Map<String, String> getAttributeAsMap() {
-        Map<String, String> stringStringMap = context.get();
+        Map<String, String> stringStringMap = CONTEXT.get();
         if (stringStringMap == null) {
             stringStringMap = new ConcurrentHashMap<>();
-            context.set(stringStringMap);
+            CONTEXT.set(stringStringMap);
         }
         return stringStringMap;
     }
@@ -35,6 +37,6 @@ public final class StaticContext {
     }
 
     public static void clear() {
-        context.remove();
+        CONTEXT.remove();
     }
 }

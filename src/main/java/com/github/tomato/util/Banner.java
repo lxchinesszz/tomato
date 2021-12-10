@@ -20,8 +20,8 @@ import java.util.jar.JarFile;
  */
 public final class Banner {
 
-    private static final String name = "Tomato";
-    private static final String defaultBanner = " _____                      _        \n" +
+    private static final String NAME = "Tomato";
+    private static final String DEFAULT_BANNER = " _____                      _        \n" +
             "/__   \\___  _ __ ___   __ _| |_ ___  \n" +
             "  / /\\/ _ \\| '_ ` _ \\ / _` | __/ _ \\ \n" +
             " / / | (_) | | | | | | (_| | || (_) |\n" +
@@ -31,6 +31,9 @@ public final class Banner {
         printVersion();
     }
 
+    /**
+     * 打印版本号
+     */
     private static void printVersion() {
         System.out.println();
         PrintStream printStream = System.out;
@@ -38,16 +41,21 @@ public final class Banner {
         version = version != null ? " (v" + version + ")" : "";
         StringBuilder padding = new StringBuilder();
 
-        while(padding.length() < 42 - (version.length() + name.length())) {
+        while (padding.length() < 42 - (version.length() + NAME.length())) {
             padding.append(" ");
         }
 
-        printStream.println(AnsiOutput.toString(new Object[]{AnsiColor.BRIGHT_RED, defaultBanner, AnsiColor.DEFAULT, padding.toString(), AnsiStyle.FAINT}));
+        printStream.println(AnsiOutput.toString(new Object[]{AnsiColor.BRIGHT_RED, DEFAULT_BANNER, AnsiColor.DEFAULT, padding.toString(), AnsiStyle.FAINT}));
         printStream.println();
         printStream.println(AnsiOutput.toString(new Object[]{AnsiColor.GREEN, " :: Tomato :: ", AnsiColor.DEFAULT, padding.toString(), AnsiStyle.FAINT, version}));
         printStream.println();
     }
 
+    /**
+     * 获取组件版本号
+     *
+     * @return String
+     */
     private static String getVersion() {
         String implementationVersion = Banner.class.getPackage().getImplementationVersion();
         if (implementationVersion != null) {
@@ -97,6 +105,13 @@ public final class Banner {
         }
     }
 
+    /**
+     * 获取包文件对应的版本用于banner的打印
+     *
+     * @param jarFile 文件
+     * @return String 版本号
+     * @throws IOException
+     */
     private static String getImplementationVersion(JarFile jarFile) throws IOException {
         return jarFile.getManifest().getMainAttributes().getValue(Attributes.Name.IMPLEMENTATION_VERSION);
     }

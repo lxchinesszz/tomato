@@ -1,6 +1,8 @@
 package com.github.tomato.exception;
 
 /**
+ * 如果你填写了错误的Spring EL表达式,将会遇到这个异常
+ *
  * @author liuxin
  * 2021/10/25 3:19 下午
  */

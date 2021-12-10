@@ -12,6 +12,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisIdempotentTemplate extends AbstractIdempotent {
 
+    /**
+     * redis的实现类
+     */
     private StringRedisTemplate redisTemplate;
 
     public RedisIdempotentTemplate(StringRedisTemplate redisTemplate) {

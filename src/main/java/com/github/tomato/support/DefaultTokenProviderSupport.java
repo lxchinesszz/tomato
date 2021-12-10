@@ -20,6 +20,13 @@ import java.util.Objects;
 public class DefaultTokenProviderSupport extends AbstractTokenProvider {
 
 
+    /**
+     * 获取组件中指定的幂等键
+     *
+     * @param method 执行方法
+     * @param args   方法参数
+     * @return String
+     */
     @Override
     public String findTomatoToken(Method method, Object[] args) {
         Parameter[] parameters = method.getParameters();
