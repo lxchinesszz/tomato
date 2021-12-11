@@ -9,25 +9,18 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 
 /**
+ * 组件启动监听器,当监听到容器启动时间后会输出组件的banner
+ *
  * @author liuxin
  * 2020-01-04 23:14
  */
-public class TomatoStartListener implements ApplicationListener<ApplicationEvent>, ApplicationContextAware {
+public class TomatoStartListener implements ApplicationListener<ApplicationEvent> {
 
-    private ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         if (applicationEvent instanceof ApplicationStartedEvent) {
-            Idempotent idempotent = applicationContext.getBean(Idempotent.class);
-            if (idempotent != null) {
-                Banner.print();
-            }
+            Banner.print();
         }
     }
 }
