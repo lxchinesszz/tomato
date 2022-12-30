@@ -247,3 +247,9 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
   解决在耗时方法上进行幂等拦截,请求锁长时间失效,导致拦截失败问题。
 - Repeat 新增方法锁耗时,默认(60*1000)ms
 - 修改策略,幂等键为空场景直接阻断告警(多半是开发者使用错误导致)
+
+**1.0.9-RELEASE**
+
+- 拦截器注解匹配逻辑优化
+- 启动logo支持配置,默认打印
+- @TomatoToken注解支持派生,方便开发者对注解进行二次封装
