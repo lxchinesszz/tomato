@@ -4,6 +4,7 @@ import com.github.tomato.annotation.TomatoToken;
 import com.github.tomato.util.BaseTypeTools;
 import com.github.tomato.util.ExpressionUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.codehaus.plexus.util.StringUtils;
 import org.springframework.util.ReflectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,12 @@ public class DefaultTokenProviderSupport extends AbstractTokenProvider {
                 continue;
             }
             String tokenElValue = tomatoToken.value();
+            if (StringUtils.isBlank(tokenElValue)) {
+                tokenElValue = tomatoToken.headValue();
+            }
+            if (StringUtils.isBlank(tokenElValue)) {
+                return null;
+            }
             switch (parameterType) {
                 case HTTP_REQUEST:
                     // 1. 如果是request对象,直接当做属性查询

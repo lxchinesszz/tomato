@@ -253,3 +253,7 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 - 拦截器注解匹配逻辑优化
 - 启动logo支持配置,默认打印
 - @TomatoToken注解支持派生,方便开发者对注解进行二次封装
+
+**1.0.10-RELEASE**
+
+- @TomatoToken增加headValue属性,支持从请求头中获取幂等键（不支持el表达式）
