@@ -59,4 +59,11 @@ public @interface Repeat {
      * @return Long
      */
     long methodLock() default 60 * 1000;
+
+    /**
+     * 从请求头中取值
+     *
+     * @return String
+     */
+    String headValue() default "";
 }

@@ -11,9 +11,13 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -58,10 +62,23 @@ public class TomatoV2Interceptor {
         Exception e;
         String tomatoToken = "";
         try {
-            //2. 获取唯一键
-            tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
+            // 从
+            assert repeat != null;
+            if (org.codehaus.plexus.util.StringUtils.isNotBlank(repeat.headValue())) {
+                ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+                if (Objects.isNull(requestAttributes)) {
+                    throw new RuntimeException("HttpServletRequest 不存在");
+                } else {
+                    HttpServletRequest request = requestAttributes.getRequest();
+                    return request.getHeader(repeat.headValue());
+                }
+
+            } else {
+                //2. 获取唯一键
+                tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
+            }
             // 如果为空直接报错
-            if (StringUtils.isEmpty(tomatoToken) || Objects.isNull(repeat)) {
+            if (StringUtils.isEmpty(tomatoToken)) {
                 throw new ElSyntaxException("el语法错误:[" + Arrays.asList(args) + "]");
             }
             //3. 唯一键键不存在,直接执行
@@ -78,6 +95,12 @@ public class TomatoV2Interceptor {
                     String message = repeat.message();
                     e = declaredConstructor.newInstance(message);
                     throw e;
+                }
+                // 检查类型
+                Class<?> returnType = method.getReturnType();
+                if (!returnType.equals(proceed.getClass())) {
+                    // 类型不匹配异常
+                    throw new TypeMismatchException(proceed, returnType);
                 }
                 result = proceed;
             }

@@ -7,8 +7,19 @@ import com.github.tomato.support.Phone;
 import com.github.tomato.support.TokenProviderSupport;
 import com.github.tomato.support.User;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -21,7 +32,7 @@ import static org.junit.Assert.*;
  */
 public class TomatoInterceptorTest {
 
-    private static class WebController {
+    public static class WebController {
 
         @Repeat
         public void testHttp(@TomatoToken(value = "name", prefix = "ts:") HttpServletRequest httpServletRequest) {
@@ -40,6 +51,11 @@ public class TomatoInterceptorTest {
 
         @Repeat
         public void testObject3(@TomatoToken("${#c.age}") User user) {
+
+        }
+
+        @Repeat(headValue = "key")
+        public void testObject4(User user) {
 
         }
     }
@@ -89,5 +105,24 @@ public class TomatoInterceptorTest {
         // phone = 137123123
         System.out.println(tomatoToken);
         assertEquals((int) user.getAge(), Integer.parseInt(tomatoToken));
+    }
+
+
+
+    @Test
+    public void testHttpHead() throws Exception {
+        AnnotationConfigApplicationContext annotationConfigWebApplicationContext = new AnnotationConfigApplicationContext();
+        annotationConfigWebApplicationContext.register(WebController.class);
+        annotationConfigWebApplicationContext.refresh();
+        WebController bean = annotationConfigWebApplicationContext.getBean(WebController.class);
+        System.out.println(bean);
+//        String expectedValue = "baidu";
+//        TokenProviderSupport tokenProviderSupport = new DefaultTokenProviderSupport();
+//        Method test = WebController.class.getDeclaredMethod("testObject4", User.class);
+//        MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+//        mockHttpServletRequest.addHeader("key","baidu");
+//        User user = new User("lx2", 23, new Phone("137123123"));
+//        String tomatoToken = tokenProviderSupport.findTomatoToken(test, new Object[]{user});
+//        Assert.assertEquals("ts:" + expectedValue, tomatoToken);
     }
 }

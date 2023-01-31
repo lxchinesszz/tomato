@@ -43,12 +43,6 @@ public class DefaultTokenProviderSupport extends AbstractTokenProvider {
                 continue;
             }
             String tokenElValue = tomatoToken.value();
-            if (StringUtils.isBlank(tokenElValue)) {
-                tokenElValue = tomatoToken.headValue();
-            }
-            if (StringUtils.isBlank(tokenElValue)) {
-                return null;
-            }
             switch (parameterType) {
                 case HTTP_REQUEST:
                     // 1. 如果是request对象,直接当做属性查询

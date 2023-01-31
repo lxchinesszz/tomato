@@ -25,10 +25,4 @@ public @interface TomatoToken {
      */
     String value() default "";
 
-    /**
-     * 从请求头中取值
-     *
-     * @return String
-     */
-    String headValue() default "";
 }
