@@ -1,5 +1,6 @@
 package com.github.tomato.util;
 
+import org.springframework.boot.Banner;
 import org.springframework.boot.ansi.AnsiColor;
 import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.boot.ansi.AnsiStyle;
@@ -16,9 +17,9 @@ import java.util.jar.JarFile;
 
 /**
  * @author liuxin
- * 2020-01-04 23:13
+ * 2023/2/2 16:20
  */
-public final class Banner {
+public class TomatoBanner {
 
     private static final String NAME = "Tomato";
     private static final String DEFAULT_BANNER = " _____                      _        \n" +
@@ -37,7 +38,7 @@ public final class Banner {
     private static void printVersion() {
         System.out.println();
         PrintStream printStream = System.out;
-        String version = Banner.getVersion();
+        String version = TomatoBanner.getVersion();
         version = version != null ? " (v" + version + ")" : "";
         StringBuilder padding = new StringBuilder();
 

@@ -1,10 +1,7 @@
 package com.github.tomato.core;
 
-import com.github.tomato.util.Banner;
-import org.springframework.beans.BeansException;
+import com.github.tomato.util.TomatoBanner;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 
@@ -20,7 +17,7 @@ public class TomatoStartListener implements ApplicationListener<ApplicationEvent
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         if (applicationEvent instanceof ApplicationStartedEvent) {
-            Banner.print();
+            TomatoBanner.print();
         }
     }
 }
