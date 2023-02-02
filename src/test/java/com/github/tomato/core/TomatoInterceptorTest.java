@@ -2,6 +2,7 @@ package com.github.tomato.core;
 
 import com.github.tomato.annotation.Repeat;
 import com.github.tomato.annotation.TomatoToken;
+import com.github.tomato.configuration.TomatoAutoConfiguration;
 import com.github.tomato.support.DefaultTokenProviderSupport;
 import com.github.tomato.support.Phone;
 import com.github.tomato.support.TokenProviderSupport;
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import javax.servlet.http.HttpServletRequest;
@@ -111,17 +113,17 @@ public class TomatoInterceptorTest {
 
     @Test
     public void testHttpHead() throws Exception {
-        AnnotationConfigApplicationContext annotationConfigWebApplicationContext = new AnnotationConfigApplicationContext();
-        annotationConfigWebApplicationContext.register(WebController.class);
-        annotationConfigWebApplicationContext.refresh();
-        WebController bean = annotationConfigWebApplicationContext.getBean(WebController.class);
+        AnnotationConfigWebApplicationContext app = new AnnotationConfigWebApplicationContext();
+        app.register(WebController.class, TomatoAutoConfiguration.class);
+        app.refresh();
+        WebController bean = app.getBean(WebController.class);
         System.out.println(bean);
+
 //        String expectedValue = "baidu";
 //        TokenProviderSupport tokenProviderSupport = new DefaultTokenProviderSupport();
 //        Method test = WebController.class.getDeclaredMethod("testObject4", User.class);
 //        MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
 //        mockHttpServletRequest.addHeader("key","baidu");
-//        User user = new User("lx2", 23, new Phone("137123123"));
 //        String tomatoToken = tokenProviderSupport.findTomatoToken(test, new Object[]{user});
 //        Assert.assertEquals("ts:" + expectedValue, tomatoToken);
     }

@@ -2,6 +2,7 @@ package com.github.tomato.core;
 
 import com.github.tomato.annotation.Repeat;
 import com.github.tomato.exception.ElSyntaxException;
+import com.github.tomato.exception.NotWebEnvException;
 import com.github.tomato.exception.RepeatOptException;
 import com.github.tomato.support.RepeatToInterceptSupport;
 import com.github.tomato.support.TokenProviderSupport;
@@ -62,17 +63,15 @@ public class TomatoV2Interceptor {
         Exception e;
         String tomatoToken = "";
         try {
-            // 从
             assert repeat != null;
             if (org.codehaus.plexus.util.StringUtils.isNotBlank(repeat.headValue())) {
                 ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
                 if (Objects.isNull(requestAttributes)) {
-                    throw new RuntimeException("HttpServletRequest 不存在");
+                    throw new NotWebEnvException("HttpServletRequest 不存在");
                 } else {
                     HttpServletRequest request = requestAttributes.getRequest();
-                    return request.getHeader(repeat.headValue());
+                    tomatoToken = request.getHeader(repeat.headValue());
                 }
-
             } else {
                 //2. 获取唯一键
                 tomatoToken = tokenProviderSupport.findTomatoToken(method, args);

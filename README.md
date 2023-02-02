@@ -256,4 +256,4 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 
 **1.0.10-RELEASE**
 
-- @TomatoToken增加headValue属性,支持从请求头中获取幂等键（不支持el表达式）
+- @Repeat增加headValue属性,支持从请求头中获取幂等键（不支持el表达式）
