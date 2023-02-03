@@ -18,7 +18,7 @@ public @interface Repeat {
 
     /**
      * 控制范围
-     *
+     * 默认时间300ms
      * @return long
      */
     @AliasFor("value")
@@ -26,7 +26,7 @@ public @interface Repeat {
 
     /**
      * 控制范围
-     *
+     * 默认时间300ms
      * @return long
      */
     @AliasFor("scope")
@@ -41,14 +41,14 @@ public @interface Repeat {
 
     /**
      * 错误提示
-     *
+     * 拦截后返回的错误提示
      * @return 错误提示
      */
     String message() default "repeat submit";
 
     /**
      * 拦截策略(默认滑动窗口)
-     *
+     * @see RepeatTypeEnum
      * @return RepeatTypeEnum
      */
     RepeatTypeEnum type() default RepeatTypeEnum.SLIDING_WINDOW;
@@ -62,7 +62,8 @@ public @interface Repeat {
 
     /**
      * 从请求头中取值
-     *
+     * 当需要从请求头中获取幂等键的时候,可以在这里指定请求头。
+     * 此时会从Request的请求中获取数据
      * @return String
      */
     String headValue() default "";

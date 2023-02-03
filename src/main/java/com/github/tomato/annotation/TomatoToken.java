@@ -3,6 +3,7 @@ package com.github.tomato.annotation;
 import java.lang.annotation.*;
 
 /**
+ * 核心注解
  * @author liuxin
  * 2020-01-03 22:34
  */
