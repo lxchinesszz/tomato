@@ -9,10 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 基于Spring.factories实现自动配置
@@ -80,15 +83,31 @@ public class TomatoAutoConfiguration {
 
     /**
      * 注册拦截器
-     *
+     * 当存在web环境则生效
      * @param idempotent               使用自动配置的拦截器
      * @param tokenProviderSupport     token解析扩展类
      * @param repeatToInterceptSupport 拦截处理器
      * @return TomatoV2Interceptor
      */
     @Bean
-    @ConditionalOnBean(Idempotent.class)
+    @ConditionalOnBean({Idempotent.class})
+    @ConditionalOnClass(HttpServletRequest.class)
     public TomatoV2Interceptor tomatoInterceptor(Idempotent idempotent, TokenProviderSupport tokenProviderSupport, RepeatToInterceptSupport repeatToInterceptSupport) {
         return new TomatoV2Interceptor(idempotent, tokenProviderSupport, repeatToInterceptSupport);
+    }
+
+    /**
+     * 注册拦截器
+     * 当不存在web环境生效
+     * @param idempotent               使用自动配置的拦截器
+     * @param tokenProviderSupport     token解析扩展类
+     * @param repeatToInterceptSupport 拦截处理器
+     * @return TomatoV2Interceptor
+     */
+    @Bean
+    @ConditionalOnBean({Idempotent.class})
+    @ConditionalOnMissingClass("javax.servlet.http.HttpServletRequest")
+    public SimpleTomatoInterceptor tomatoInterceptor2(Idempotent idempotent, TokenProviderSupport tokenProviderSupport, RepeatToInterceptSupport repeatToInterceptSupport) {
+        return new SimpleTomatoInterceptor(idempotent, tokenProviderSupport, repeatToInterceptSupport);
     }
 }

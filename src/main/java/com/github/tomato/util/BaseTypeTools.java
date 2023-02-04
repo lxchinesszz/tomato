@@ -7,6 +7,7 @@ package com.github.tomato.util;
  * 2020-01-03 22:33
  */
 public class BaseTypeTools {
+
     /**
      * 判断对象属性是否是基本数据类型,包括是否包括string
      *

@@ -34,11 +34,11 @@ import java.util.concurrent.TimeUnit;
 @Aspect
 public class TomatoV2Interceptor {
 
-    private Idempotent idempotent;
+    protected Idempotent idempotent;
 
-    private TokenProviderSupport tokenProviderSupport;
+    protected TokenProviderSupport tokenProviderSupport;
 
-    private RepeatToInterceptSupport interceptSupport;
+    protected RepeatToInterceptSupport interceptSupport;
 
     public TomatoV2Interceptor() {
     }
@@ -53,6 +53,27 @@ public class TomatoV2Interceptor {
         return tomatoToken + method.getName();
     }
 
+    protected String webTomatoToken(String headValue) {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (Objects.isNull(requestAttributes)) {
+            throw new NotWebEnvException("HttpServletRequest 不存在");
+        } else {
+            HttpServletRequest request = requestAttributes.getRequest();
+            return request.getHeader(headValue);
+        }
+    }
+
+    protected String tomatoToken(Repeat repeat, Method method, Object[] args) throws Exception {
+        String tomatoToken;
+        if (org.codehaus.plexus.util.StringUtils.isNotBlank(repeat.headValue())) {
+            tomatoToken = webTomatoToken(repeat.headValue());
+        } else {
+            //2. 获取唯一键
+            tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
+        }
+        return tomatoToken;
+    }
+
     @Around("@annotation(com.github.tomato.annotation.Repeat)")
     public Object doAround(ProceedingJoinPoint pjp) {
         //1. 获取唯一键的获取方式
@@ -64,18 +85,7 @@ public class TomatoV2Interceptor {
         String tomatoToken = "";
         try {
             assert repeat != null;
-            if (org.codehaus.plexus.util.StringUtils.isNotBlank(repeat.headValue())) {
-                ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-                if (Objects.isNull(requestAttributes)) {
-                    throw new NotWebEnvException("HttpServletRequest 不存在");
-                } else {
-                    HttpServletRequest request = requestAttributes.getRequest();
-                    tomatoToken = request.getHeader(repeat.headValue());
-                }
-            } else {
-                //2. 获取唯一键
-                tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
-            }
+            tomatoToken = tomatoToken(repeat, method, args);
             // 如果为空直接报错
             if (StringUtils.isEmpty(tomatoToken)) {
                 throw new ElSyntaxException("el语法错误:[" + Arrays.asList(args) + "]");

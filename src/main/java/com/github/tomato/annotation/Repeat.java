@@ -61,7 +61,7 @@ public @interface Repeat {
     long methodLock() default 60 * 1000;
 
     /**
-     * 从请求头中取值
+     * 从请求头中取值. 【web环境内生效】
      * 当需要从请求头中获取幂等键的时候,可以在这里指定请求头。
      * 此时会从Request的请求中获取数据
      * @return String
