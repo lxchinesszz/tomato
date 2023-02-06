@@ -53,20 +53,10 @@ public class TomatoV2Interceptor {
         return tomatoToken + method.getName();
     }
 
-    protected String webTomatoToken(String headValue) {
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        if (Objects.isNull(requestAttributes)) {
-            throw new NotWebEnvException("HttpServletRequest 不存在");
-        } else {
-            HttpServletRequest request = requestAttributes.getRequest();
-            return request.getHeader(headValue);
-        }
-    }
-
     protected String tomatoToken(Repeat repeat, Method method, Object[] args) throws Exception {
         String tomatoToken;
         if (org.codehaus.plexus.util.StringUtils.isNotBlank(repeat.headValue())) {
-            tomatoToken = webTomatoToken(repeat.headValue());
+            tomatoToken = tokenProviderSupport.findTomatoHeadToken(method, args);
         } else {
             //2. 获取唯一键
             tomatoToken = tokenProviderSupport.findTomatoToken(method, args);
