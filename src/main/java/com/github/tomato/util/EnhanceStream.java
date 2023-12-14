@@ -24,11 +24,9 @@ public final class EnhanceStream<T> {
 
     /**
      * 生成list
-     * 
-     * @param elements
-     *            元素
-     * @param <T>
-     *            泛型
+     *
+     * @param elements 元素
+     * @param <T>      泛型
      * @return List
      */
     @SafeVarargs
@@ -59,14 +57,10 @@ public final class EnhanceStream<T> {
     /**
      * 两个Map进行合并
      *
-     * @param map
-     *            原始map
-     * @param add
-     *            要合并的map
-     * @param <K>
-     *            key泛型
-     * @param <V>
-     *            值泛型
+     * @param map 原始map
+     * @param add 要合并的map
+     * @param <K> key泛型
+     * @param <V> 值泛型
      */
     public static <K, V> void addAll(Map<K, V> map, Map<K, V> add) {
         if (isNotEmpty(add) && Objects.nonNull(map)) {
@@ -97,8 +91,7 @@ public final class EnhanceStream<T> {
      * <p>
      * Null returns false.
      *
-     * @param coll
-     *            the collection to check, may be null
+     * @param coll the collection to check, may be null
      * @return true if non-null and non-empty
      * @since 3.2
      */
@@ -117,8 +110,7 @@ public final class EnhanceStream<T> {
     /**
      * 返回空集合
      *
-     * @param <T>
-     *            泛型
+     * @param <T> 泛型
      * @return List
      */
     public static <T> List<T> emptyList() {
@@ -132,8 +124,7 @@ public final class EnhanceStream<T> {
     /**
      * 返回空集合
      *
-     * @param <T>
-     *            泛型
+     * @param <T> 泛型
      * @return List
      */
     public static <T> Set<T> emptySet() {
@@ -143,11 +134,9 @@ public final class EnhanceStream<T> {
     /**
      * 去重
      *
-     * @param dataSources
-     *            数据
-     * @param <T>
-     *            泛型
-     * @return List<T>
+     * @param dataSources 数据
+     *                    泛型
+     * @return List 列表
      */
     public static <T> List<T> distinct(List<T> dataSources) {
         return newStream(dataSources).filter(Objects::nonNull).distinct().collect(Collectors.toList());
@@ -156,11 +145,9 @@ public final class EnhanceStream<T> {
     /**
      * 去重
      *
-     * @param dataSources
-     *            数据
-     * @param <T>
-     *            泛型
-     * @return List<T>
+     * @param dataSources 数据
+     * @param <T>         泛型
+     * @return List 列表
      */
     public static <T, R> List<R> distinct(List<T> dataSources, Function<T, R> mapper) {
         List<R> rs = mapToList(dataSources, mapper);
@@ -170,11 +157,9 @@ public final class EnhanceStream<T> {
     /**
      * 去重
      *
-     * @param dataSources
-     *            数据
-     * @param <T>
-     *            泛型
-     * @return List<T>
+     * @param dataSources 数据
+     *          泛型
+     * @return List 列表
      */
     public static <T, T1, R> List<R> distinct(List<T> dataSources, Function<T, T1> mapper1, Function<T1, R> mapper2) {
         List<T1> rs = mapToList(dataSources, mapper1);
@@ -184,10 +169,8 @@ public final class EnhanceStream<T> {
     /**
      * 去重
      *
-     * @param dataSources
-     *            数据
-     * @param <T>
-     *            泛型
+     * @param dataSources 数据
+     * @param <T>         泛型
      * @return List<T>
      */
     public static <T, R> List<T> distinctByKey(List<T> dataSources, Function<T, R> mapper) {
@@ -198,12 +181,9 @@ public final class EnhanceStream<T> {
     /**
      * 从流中获取Inter类型数据,非空处理后,求和
      *
-     * @param dataStream
-     *            原始数据流
-     * @param mapper
-     *            指定数字类型字段
-     * @param <T>
-     *            泛型
+     * @param dataStream 原始数据流
+     * @param mapper     指定数字类型字段
+     * @param <T>        泛型
      * @return Integer
      */
     public static <T> Integer mapToNonNullIntSum(Stream<T> dataStream, Function<T, Integer> mapper) {
@@ -231,12 +211,9 @@ public final class EnhanceStream<T> {
     /**
      * 从流中获取Inter类型数据,非空处理后,求和（如果元素为空，则返回空）
      *
-     * @param dataStream
-     *            原始数据流
-     * @param mapper
-     *            指定数字类型字段
-     * @param <T>
-     *            泛型
+     * @param dataStream 原始数据流
+     * @param mapper     指定数字类型字段
+     * @param <T>        泛型
      * @return Integer
      */
     public static <T> Integer mapToNullAbleIntSum(Stream<T> dataStream, Function<T, Integer> mapper) {
@@ -255,12 +232,9 @@ public final class EnhanceStream<T> {
     /**
      * 从流中获取Inter类型数据,非空处理后,求和
      *
-     * @param dataStream
-     *            原始数据流
-     * @param mapper
-     *            指定数字类型字段
-     * @param <T>
-     *            泛型
+     * @param dataStream 原始数据流
+     * @param mapper     指定数字类型字段
+     * @param <T>        泛型
      * @return Integer
      */
     public static <T> Long mapToNonNullLongSum(Stream<T> dataStream, Function<T, Long> mapper) {
@@ -277,12 +251,9 @@ public final class EnhanceStream<T> {
     /**
      * 从流中获取Inter类型数据,非空处理后,求和
      *
-     * @param dataSources
-     *            原始数据源
-     * @param mapper
-     *            指定数字类型字段
-     * @param <T>
-     *            泛型
+     * @param dataSources 原始数据源
+     * @param mapper      指定数字类型字段
+     * @param <T>         泛型
      * @return Integer
      */
     public static <T> Integer mapToNonNullIntSum(List<T> dataSources, Function<T, Integer> mapper) {
@@ -292,12 +263,9 @@ public final class EnhanceStream<T> {
     /**
      * 从流中获取Inter类型数据,非空处理后,求和（如果元素为空，则返回空）
      *
-     * @param dataSources
-     *            原始数据源
-     * @param mapper
-     *            指定数字类型字段
-     * @param <T>
-     *            泛型
+     * @param dataSources 原始数据源
+     * @param mapper      指定数字类型字段
+     * @param <T>         泛型
      * @return Integer
      */
     public static <T> Integer mapToNullAbleIntSum(List<T> dataSources, Function<T, Integer> mapper) {
@@ -307,12 +275,9 @@ public final class EnhanceStream<T> {
     /**
      * 从流中获取Inter类型数据,非空处理后,求和
      *
-     * @param dataSources
-     *            原始数据源
-     * @param mapper
-     *            指定数字类型字段
-     * @param <T>
-     *            泛型
+     * @param dataSources 原始数据源
+     * @param mapper      指定数字类型字段
+     * @param <T>         泛型
      * @return Integer
      */
     public static <T> Long mapToNonNullLongSum(List<T> dataSources, Function<T, Long> mapper) {
@@ -322,12 +287,9 @@ public final class EnhanceStream<T> {
     /**
      * 从map中获取所有的值的list
      *
-     * @param map
-     *            Map数据
-     * @param <K>
-     *            key泛型
-     * @param <V>
-     *            value泛型
+     * @param map Map数据
+     * @param <K> key泛型
+     * @param <V> value泛型
      * @return List
      */
     public static <K, V> List<V> getValues(Map<K, V> map) {
@@ -341,12 +303,9 @@ public final class EnhanceStream<T> {
     /**
      * 从map中获取所有的值的list
      *
-     * @param map
-     *            Map数据
-     * @param <K>
-     *            key泛型
-     * @param <V>
-     *            value泛型
+     * @param map Map数据
+     * @param <K> key泛型
+     * @param <V> value泛型
      * @return List
      */
     public static <K, V> Optional<V> getValuesFirst(Map<K, V> map) {
@@ -357,12 +316,9 @@ public final class EnhanceStream<T> {
     /**
      * 如果是数据分组格式key是一个，value是list的情况，只去value中的第一个。
      *
-     * @param map
-     *            Map数据
-     * @param <K>
-     *            key泛型
-     * @param <V>
-     *            value泛型
+     * @param map Map数据
+     * @param <K> key泛型
+     * @param <V> value泛型
      * @return List
      */
     public static <K, V> List<V> eachGetValueFirst(Map<K, List<V>> map) {
@@ -381,12 +337,9 @@ public final class EnhanceStream<T> {
     /**
      * 从map中获取所有的key的list
      *
-     * @param map
-     *            Map数据
-     * @param <K>
-     *            key泛型
-     * @param <V>
-     *            value泛型
+     * @param map Map数据
+     * @param <K> key泛型
+     * @param <V> value泛型
      * @return List
      */
     public static <K, V> List<K> getKeys(Map<K, V> map) {
@@ -400,14 +353,10 @@ public final class EnhanceStream<T> {
     /**
      * 从流中建立新的类型
      *
-     * @param dataStream
-     *            数据流
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataStream 数据流
+     * @param mapping    转换函数
+     * @param <T>        原数据类型
+     * @param <R>        目标数据类型
      * @return List
      */
     public static <T, R> List<R> mapToList(Stream<T> dataStream, Function<T, R> mapping) {
@@ -417,14 +366,10 @@ public final class EnhanceStream<T> {
     /**
      * 从流中建立新的类型
      *
-     * @param dataSources
-     *            数据源
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataSources 数据源
+     * @param mapping     转换函数
+     * @param <T>         原数据类型
+     * @param <R>         目标数据类型
      * @return List
      */
     public static <T, R> List<R> mapToList(List<T> dataSources, Function<T, R> mapping) {
@@ -434,14 +379,10 @@ public final class EnhanceStream<T> {
     /**
      * 从流中建立新的类型
      *
-     * @param dataSources
-     *            数据源
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataSources 数据源
+     * @param mapping     转换函数
+     * @param <T>         原数据类型
+     * @param <R>         目标数据类型
      * @return List
      */
     public static <T, R> List<R> mapToUniqueList(List<T> dataSources, Function<T, R> mapping) {
@@ -451,43 +392,35 @@ public final class EnhanceStream<T> {
     /**
      * 从流中建立新的类型
      *
-     * @param dataSources
-     *            数据源
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataSources 数据源
+     * @param mapping     转换函数
+     * @param <T>         原数据类型
+     * @param <R>         目标数据类型
      * @return List
      */
     public static <T, R1, R> List<R> mapToUniqueList(List<T> dataSources, Function<T, R1> mapping,
-        Function<R1, R> mapping1) {
+                                                     Function<R1, R> mapping1) {
         return newStream(dataSources).map(mapping).filter(Objects::nonNull).map(mapping1).filter(Objects::nonNull)
-            .distinct().collect(Collectors.toList());
+                .distinct().collect(Collectors.toList());
     }
 
     /**
      * 从流中建立新的类型
      *
-     * @param dataSources
-     *            数据源
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataSources 数据源
+     * @param mapping     转换函数
+     * @param <T>         原数据类型
+     * @param <R>         目标数据类型
      * @return List
      */
     public static <T, R, V> List<V> supperMapToList(List<T> dataSources, Function<T, R> mapping,
-        Function<R, V> mapping2) {
+                                                    Function<R, V> mapping2) {
         return newStream(dataSources).map(mapping).filter(Objects::nonNull).map(mapping2).filter(Objects::nonNull)
-            .distinct().collect(Collectors.toList());
+                .distinct().collect(Collectors.toList());
     }
 
     public static <T, R, V> List<V> supperMapMergeMerge(List<T> dataSources, Function<T, List<R>> mapping,
-        Function<R, V> mapping2) {
+                                                        Function<R, V> mapping2) {
         List<R> rs = mapToMergeList(dataSources, mapping);
         return EnhanceStream.mapToList(rs, mapping2);
     }
@@ -495,8 +428,7 @@ public final class EnhanceStream<T> {
     /**
      * 将多个list集合合并成一个 如果要保证添加顺序，请按照顺序添加
      *
-     * @param dataSourceList
-     *            数据源
+     * @param dataSourceList 数据源
      * @return List
      */
     @SafeVarargs
@@ -516,19 +448,15 @@ public final class EnhanceStream<T> {
     /**
      * 从流中建立新的List类型,并将新的list
      *
-     * @param dataSources
-     *            数据源
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataSources 数据源
+     * @param mapping     转换函数
+     * @param <T>         原数据类型
+     * @param <R>         目标数据类型
      * @return List
      */
     public static <T, R> List<R> mapToMergeList(List<T> dataSources, Function<T, List<R>> mapping) {
         List<List<R>> collect =
-            newStream(dataSources).map(mapping).filter(Objects::nonNull).collect(Collectors.toList());
+                newStream(dataSources).map(mapping).filter(Objects::nonNull).collect(Collectors.toList());
         List<R> allList = new ArrayList<>();
         for (List<R> rs : collect) {
             allList.addAll(rs);
@@ -539,14 +467,10 @@ public final class EnhanceStream<T> {
     /**
      * 从流中建立新的类型
      *
-     * @param dataSource
-     *            数据
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataSource 数据
+     * @param mapping    转换函数
+     * @param <T>        原数据类型
+     * @param <R>        目标数据类型
      * @return List
      */
     public static <T, R> Set<R> mapToSet(List<T> dataSource, Function<T, R> mapping) {
@@ -556,14 +480,10 @@ public final class EnhanceStream<T> {
     /**
      * 从流中建立新的类型
      *
-     * @param dataStream
-     *            数据流
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataStream 数据流
+     * @param mapping    转换函数
+     * @param <T>        原数据类型
+     * @param <R>        目标数据类型
      * @return List
      */
     public static <T, R> Set<R> mapToSet(Stream<T> dataStream, Function<T, R> mapping) {
@@ -573,32 +493,24 @@ public final class EnhanceStream<T> {
     /**
      * 从流中建立新的类型并去重
      *
-     * @param dataSources
-     *            数据流
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataSources 数据流
+     * @param mapping     转换函数
+     * @param <T>         原数据类型
+     * @param <R>         目标数据类型
      * @return List
      */
     public static <T, R> List<R> distinctMapToList(List<T> dataSources, Function<T, R> mapping) {
         return newStream(newStream(dataSources)).map(mapping).filter(Objects::nonNull).distinct()
-            .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     /**
      * 从流中建立新的类型并去重
      *
-     * @param dataStream
-     *            数据流
-     * @param mapping
-     *            转换函数
-     * @param <T>
-     *            原数据类型
-     * @param <R>
-     *            目标数据类型
+     * @param dataStream 数据流
+     * @param mapping    转换函数
+     * @param <T>        原数据类型
+     * @param <R>        目标数据类型
      * @return List
      */
     public static <T, R> List<R> distinctMapToList(Stream<T> dataStream, Function<T, R> mapping) {
@@ -608,54 +520,42 @@ public final class EnhanceStream<T> {
     /**
      * 对数据流进行过滤
      *
-     * @param dataStream
-     *            数据流
-     * @param predicate
-     *            过滤条件
-     * @param exceptionSupplier
-     *            异常生成
-     * @param <T>
-     *            数据泛型
-     * @param <X>
-     *            异常泛型
+     * @param dataStream        数据流
+     * @param predicate         过滤条件
+     * @param exceptionSupplier 异常生成
+     * @param <T>               数据泛型
+     * @param <X>               异常泛型
      * @return List 过滤后的数据条件
-     * @throws X
-     *             Throwable
+     * @throws X Throwable
      */
     public static <T, X extends Throwable> T filterSingle(Stream<T> dataStream, Predicate<? super T> predicate,
-        Supplier<? extends X> exceptionSupplier) throws X {
+                                                          Supplier<? extends X> exceptionSupplier) throws X {
         return StreamFilter.filterSingle(newStream(dataStream), predicate, exceptionSupplier);
     }
 
     /**
      * 过滤
      *
-     * @param dataSource
-     *            数据源
-     * @param predicate
-     *            过滤条件
-     * @param <T>
-     *            数据泛型
+     * @param dataSource 数据源
+     * @param predicate  过滤条件
+     * @param <T>        数据泛型
      * @return List
      */
     public static <T, R> List<T> superFilter(List<T> dataSource, Function<T, R> function,
-        Predicate<? super R> predicate) {
+                                             Predicate<? super R> predicate) {
         return superFilter(newStream(dataSource), function, predicate);
     }
 
     /**
      * 根据条件生成List集合
      *
-     * @param dataStream
-     *            数据流
-     * @param predicate
-     *            过滤条件
-     * @param <T>
-     *            数据泛型
+     * @param dataStream 数据流
+     * @param predicate  过滤条件
+     * @param <T>        数据泛型
      * @return List
      */
     public static <T, R> List<T> superFilter(Stream<T> dataStream, Function<T, R> function,
-        Predicate<? super R> predicate) {
+                                             Predicate<? super R> predicate) {
         List<T> result = new ArrayList<>();
         dataStream.filter(Objects::nonNull).forEach(t -> {
             R apply = function.apply(t);
@@ -669,12 +569,9 @@ public final class EnhanceStream<T> {
     /**
      * 对数据流进行过滤
      *
-     * @param dataSource
-     *            数据源头
-     * @param predicate
-     *            过滤条件
-     * @param <T>
-     *            数据泛型
+     * @param dataSource 数据源头
+     * @param predicate  过滤条件
+     * @param <T>        数据泛型
      * @return List 过滤后的数据条件
      */
     public static <T> List<T> filter(List<T> dataSource, Predicate<? super T> predicate) {
@@ -684,12 +581,9 @@ public final class EnhanceStream<T> {
     /**
      * 对数据流进行过滤
      *
-     * @param dataStream
-     *            数据流
-     * @param predicate
-     *            过滤条件
-     * @param <T>
-     *            数据泛型
+     * @param dataStream 数据流
+     * @param predicate  过滤条件
+     * @param <T>        数据泛型
      * @return List 过滤后的数据条件
      */
     public static <T> List<T> filter(Stream<T> dataStream, Predicate<? super T> predicate) {
@@ -697,7 +591,7 @@ public final class EnhanceStream<T> {
     }
 
     public static <T, X extends Throwable> T findFirst(Stream<T> dataStream, Supplier<? extends X> exceptionSupplier)
-        throws X {
+            throws X {
         return newStream(dataStream).findFirst().orElseThrow(exceptionSupplier);
     }
 
@@ -716,10 +610,8 @@ public final class EnhanceStream<T> {
     /**
      * 从流中获取任意数据
      *
-     * @param dataList
-     *            数据集合
-     * @param <T>
-     *            泛型
+     * @param dataList 数据集合
+     * @param <T>      泛型
      * @return Optional
      */
     public static <T> Optional<T> findAny(List<T> dataList) {
@@ -729,10 +621,8 @@ public final class EnhanceStream<T> {
     /**
      * 从流中获取任意数据
      *
-     * @param dataList
-     *            数据集合
-     * @param <T>
-     *            泛型
+     * @param dataList 数据集合
+     * @param <T>      泛型
      * @return Optional
      */
     public static <T> T findRequiredAny(List<T> dataList) {
@@ -746,34 +636,25 @@ public final class EnhanceStream<T> {
     /**
      * 对数据流进行过滤,并对过滤后的数据进行类型转换
      *
-     * @param dataStream
-     *            数据流
-     * @param predicate
-     *            过滤条件
-     * @param applyMapping
-     *            数据转换器
-     * @param <T>
-     *            数据泛型
-     * @param <V>
-     *            转换后的数据类型
+     * @param dataStream   数据流
+     * @param predicate    过滤条件
+     * @param applyMapping 数据转换器
+     * @param <T>          数据泛型
+     * @param <V>          转换后的数据类型
      * @return List 过滤后的数据条件
      */
     public static <T, V> List<V> filter(Stream<T> dataStream, Predicate<? super T> predicate,
-        Function<? super T, ? extends V> applyMapping) {
+                                        Function<? super T, ? extends V> applyMapping) {
         return StreamFilter.filter(newStream(dataStream), predicate, applyMapping);
     }
 
     /**
      * 对数据流进行分组
      *
-     * @param dataStream
-     *            数据流
-     * @param keyApply
-     *            分组项
-     * @param <T>
-     *            数据泛型
-     * @param <K>
-     *            分组项泛型
+     * @param dataStream 数据流
+     * @param keyApply   分组项
+     * @param <T>        数据泛型
+     * @param <K>        分组项泛型
      * @return Map 分组后数据
      */
     public static <T, K> Map<K, List<T>> group(Stream<T> dataStream, Function<? super T, ? extends K> keyApply) {
@@ -783,34 +664,24 @@ public final class EnhanceStream<T> {
     /**
      * 对数据流进行分组,并对分组后的数据进行类型转换
      *
-     * @param dataStream
-     *            数据流
-     * @param keyApply
-     *            分组项
-     * @param valueApply
-     *            数据转换器
-     * @param <T>
-     *            数据泛型
-     * @param <K>
-     *            分组项泛型
-     * @param <V>
-     *            转换后的数据类型
+     * @param dataStream 数据流
+     * @param keyApply   分组项
+     * @param valueApply 数据转换器
+     * @param <T>        数据泛型
+     * @param <K>        分组项泛型
+     * @param <V>        转换后的数据类型
      * @return Map 分组后数据
      */
     public static <T, K, V> Map<K, List<V>> group(Stream<T> dataStream, Function<? super T, ? extends K> keyApply,
-        Function<? super T, ? extends V> valueApply) {
+                                                  Function<? super T, ? extends V> valueApply) {
         return StreamBinder.group(newStream(dataStream), keyApply, valueApply);
     }
 
     /**
-     * @param dataSource
-     *            商品配置
-     * @param keyApply
-     *            key生成
-     * @param <K>
-     *            key泛型
-     * @param <T>
-     *            数据源泛型
+     * @param dataSource 商品配置
+     * @param keyApply   key生成
+     * @param <K>        key泛型
+     * @param <T>        数据源泛型
      * @return Map<K, V>
      */
     public static <K, T> Map<K, T> dismantlingFirst(List<T> dataSource, Function<? super T, ? extends K> keyApply) {
@@ -818,48 +689,36 @@ public final class EnhanceStream<T> {
     }
 
     /**
-     * @param dataSource
-     *            商品配置
-     * @param keyApply
-     *            key生成
-     * @param <K>
-     *            key泛型
-     * @param <T>
-     *            数据源泛型
+     * @param dataSource 商品配置
+     * @param keyApply   key生成
+     * @param <K>        key泛型
+     * @param <T>        数据源泛型
      * @return Map<K, V>
      */
     public static <K, V, T> Map<K, V> dismantlingFirst(List<T> dataSource, Function<? super T, ? extends K> keyApply,
-        Function<? super T, ? extends V> valueApply) {
+                                                       Function<? super T, ? extends V> valueApply) {
         return StreamBinder.dismantlingFirst(newStream(dataSource), keyApply, valueApply);
     }
 
     /**
-     * @param dataSourceStream
-     *            商品配置
-     * @param keyApply
-     *            key生成
-     * @param <K>
-     *            key泛型
-     * @param <T>
-     *            数据源泛型
+     * @param dataSourceStream 商品配置
+     * @param keyApply         key生成
+     * @param <K>              key泛型
+     * @param <T>              数据源泛型
      * @return Map<K, V>
      */
     public static <K, T> Map<K, T> dismantlingFirst(Stream<T> dataSourceStream,
-        Function<? super T, ? extends K> keyApply) {
+                                                    Function<? super T, ? extends K> keyApply) {
         return StreamBinder.dismantlingFirst(dataSourceStream, keyApply);
     }
 
     /**
      * 数据拆分「注意: 拆分后的数据,如果Key一样会产生异常,请谨慎使用
      *
-     * @param dataStream
-     *            数据流
-     * @param keyApply
-     *            Key转换器
-     * @param <T>
-     *            原始数据泛型
-     * @param <K>
-     *            Key泛型
+     * @param dataStream 数据流
+     * @param keyApply   Key转换器
+     * @param <T>        原始数据泛型
+     * @param <K>        Key泛型
      * @return Map 拆分后数据
      */
     public static <T, K> Map<K, T> dismantling(List<T> dataStream, Function<? super T, ? extends K> keyApply) {
@@ -869,14 +728,10 @@ public final class EnhanceStream<T> {
     /**
      * 数据拆分「注意: 拆分后的数据,如果Key一样会产生异常,请谨慎使用
      *
-     * @param dataStream
-     *            数据流
-     * @param keyApply
-     *            Key转换器
-     * @param <T>
-     *            原始数据泛型
-     * @param <K>
-     *            Key泛型
+     * @param dataStream 数据流
+     * @param keyApply   Key转换器
+     * @param <T>        原始数据泛型
+     * @param <K>        Key泛型
      * @return Map 拆分后数据
      */
     public static <T, K> Map<K, T> dismantling(Stream<T> dataStream, Function<? super T, ? extends K> keyApply) {
@@ -886,83 +741,62 @@ public final class EnhanceStream<T> {
     /**
      * 数据拆分「注意: 拆分后的数据,如果Key一样会产生异常,请谨慎使用
      *
-     * @param dataSource
-     *            数据源
-     * @param keyApply
-     *            Key转换器
-     * @param <T>
-     *            原始数据泛型
-     * @param <K>
-     *            Key泛型
+     * @param dataSource 数据源
+     * @param keyApply   Key转换器
+     * @param <T>        原始数据泛型
+     * @param <K>        Key泛型
      * @return Map 拆分后数据
      */
     public static <T, K, X extends Throwable> Map<K, T> dismantling(List<T> dataSource,
-        Function<? super T, ? extends K> keyApply, Supplier<? extends X> exceptionSupplier) throws X {
+                                                                    Function<? super T, ? extends K> keyApply, Supplier<? extends X> exceptionSupplier) throws X {
         return StreamBinder.dismantling(newStream(dataSource), keyApply, exceptionSupplier);
     }
 
     /**
      * 数据拆分「注意: 拆分后的数据,如果Key一样会产生异常,请谨慎使用
      *
-     * @param dataStream
-     *            数据流
-     * @param keyApply
-     *            Key转换器
-     * @param <T>
-     *            原始数据泛型
-     * @param <K>
-     *            Key泛型
+     * @param dataStream 数据流
+     * @param keyApply   Key转换器
+     * @param <T>        原始数据泛型
+     * @param <K>        Key泛型
      * @return Map 拆分后数据
      */
     public static <T, K, X extends Throwable> Map<K, T> dismantling(Stream<T> dataStream,
-        Function<? super T, ? extends K> keyApply, Supplier<? extends X> exceptionSupplier) throws X {
+                                                                    Function<? super T, ? extends K> keyApply, Supplier<? extends X> exceptionSupplier) throws X {
         return StreamBinder.dismantling(newStream(dataStream), keyApply, exceptionSupplier);
     }
 
     /**
      * 数据拆分「注意: 拆分后的数据,如果Key一样会产生异常,请谨慎使用
      *
-     * @param dataStream
-     *            数据流
-     * @param keyApply
-     *            Key转换器
-     * @param valueApply
-     *            Value转换器
-     * @param <T>
-     *            原始数据泛型
-     * @param <K>
-     *            Key泛型
-     * @param <V>
-     *            Value泛型
+     * @param dataStream 数据流
+     * @param keyApply   Key转换器
+     * @param valueApply Value转换器
+     * @param <T>        原始数据泛型
+     * @param <K>        Key泛型
+     * @param <V>        Value泛型
      * @return Map 拆分后数据
      */
     public static <T, K, V> Map<K, V> dismantling(Stream<T> dataStream, Function<? super T, ? extends K> keyApply,
-        Function<? super T, ? extends V> valueApply) {
+                                                  Function<? super T, ? extends V> valueApply) {
         return StreamBinder.dismantling(newStream(dataStream), keyApply, valueApply);
     }
 
     /**
      * 数据拆分「注意: 拆分后的数据,如果Key一样会产生异常,请谨慎使用
      *
-     * @param dataStream
-     *            数据流
-     * @param keyApply
-     *            Key转换器
-     * @param valueApply
-     *            Value转换器
-     * @param <T>
-     *            原始数据泛型
-     * @param <K>
-     *            Key泛型
-     * @param <V>
-     *            Value泛型
-     * @param <X>
-     *            数据重复产生的异常描述
+     * @param dataStream 数据流
+     * @param keyApply   Key转换器
+     * @param valueApply Value转换器
+     * @param <T>        原始数据泛型
+     * @param <K>        Key泛型
+     * @param <V>        Value泛型
+     * @param <X>        数据重复产生的异常描述
      * @return Map 拆分后数据
      */
     public static <T, K, V, X extends Throwable> Map<K, V> dismantling(Stream<T> dataStream,
-        Function<? super T, ? extends K> keyApply, Function<? super T, ? extends V> valueApply,
-        Supplier<? extends X> exceptionSupplier) throws X {
+                                                                       Function<? super T, ? extends K> keyApply, Function<? super T, ? extends V> valueApply,
+                                                                       Supplier<? extends X> exceptionSupplier) throws X {
         return StreamBinder.dismantling(newStream(dataStream), keyApply, valueApply, exceptionSupplier);
     }
 
@@ -983,42 +817,31 @@ public final class EnhanceStream<T> {
     /**
      * 对数据流进行过滤,并对过滤后的数据进行类型转换
      *
-     * @param dataSources
-     *            原始数据流
-     * @param predicate
-     *            过滤条件
-     * @param applyMapping
-     *            数据转换器
-     * @param <V>
-     *            转换后的数据类型
-     * @param <T>
-     *            原始数据类型
+     * @param dataSources  原始数据流
+     * @param predicate    过滤条件
+     * @param applyMapping 数据转换器
+     * @param <V>          转换后的数据类型
+     * @param <T>          原始数据类型
      * @return List 过滤后的数据条件
      */
     public static <T, V> List<V> filter(List<T> dataSources, Predicate<? super T> predicate,
-        Function<? super T, ? extends V> applyMapping) {
+                                        Function<? super T, ? extends V> applyMapping) {
         return StreamFilter.filter(newStream(dataSources), predicate, applyMapping);
     }
 
     /**
      * 数据拆分「注意: 拆分后的数据,如果Key一样会产生异常,请谨慎使用
      *
-     * @param dataSources
-     *            原始数据
-     * @param keyApply
-     *            Key转换器
-     * @param valueApply
-     *            Value转换器
-     * @param <K>
-     *            Key泛型
-     * @param <V>
-     *            Value泛型
-     * @param <T>
-     *            原始数据类型
+     * @param dataSources 原始数据
+     * @param keyApply    Key转换器
+     * @param valueApply  Value转换器
+     * @param <K>         Key泛型
+     * @param <V>         Value泛型
+     * @param <T>         原始数据类型
      * @return Map 拆分后数据
      */
     public static <T, K, V> Map<K, V> dismantling(List<T> dataSources, Function<? super T, ? extends K> keyApply,
-        Function<? super T, ? extends V> valueApply) {
+                                                  Function<? super T, ? extends V> valueApply) {
         return StreamBinder.dismantling(newStream(dataSources), keyApply, valueApply);
     }
 
@@ -1052,12 +875,9 @@ public final class EnhanceStream<T> {
     /**
      * 对数据流进行分组
      *
-     * @param dataSources
-     *            原始数据流
-     * @param keyApply
-     *            分组项
-     * @param <K>
-     *            分组项泛型
+     * @param dataSources 原始数据流
+     * @param keyApply    分组项
+     * @param <K>         分组项泛型
      * @return Map 分组后数据
      */
     public static <K, T> Map<K, List<T>> group(List<T> dataSources, Function<? super T, ? extends K> keyApply) {
@@ -1067,150 +887,120 @@ public final class EnhanceStream<T> {
     /**
      * 对数据流进行分组,并对分组后的数据进行类型转换
      *
-     * @param dataSources
-     *            原始数据流
-     * @param keyApply
-     *            分组项
-     * @param valueApply
-     *            数据转换器
-     * @param <K>
-     *            分组项泛型
-     * @param <V>
-     *            转换后的数据类型
+     * @param dataSources 原始数据流
+     * @param keyApply    分组项
+     * @param valueApply  数据转换器
+     * @param <K>         分组项泛型
+     * @param <V>         转换后的数据类型
      * @return Map 分组后数据
      */
     public static <K, T, V> Map<K, List<V>> group(List<T> dataSources, Function<? super T, ? extends K> keyApply,
-        Function<? super T, ? extends V> valueApply) {
+                                                  Function<? super T, ? extends V> valueApply) {
         return StreamBinder.group(newStream(dataSources), keyApply, valueApply);
     }
 
     /**
      * 升序
      *
-     * @param dataSources
-     *            数据集合
-     * @param compareFunction
-     *            排序字段
-     * @param <T>
-     *            集合类型泛型类
+     * @param dataSources     数据集合
+     * @param compareFunction 排序字段
+     * @param <T>             集合类型泛型类
      * @return List<T>
      */
     public static <T, U extends Comparable<? super U>> List<T> sortedAsc(List<T> dataSources,
-        Function<T, U> compareFunction) {
+                                                                         Function<T, U> compareFunction) {
         return sorted(newStream(dataSources), compareFunction, SortStrategy.UP, SortNullStrategy.NULL_IGNORE);
     }
 
     /**
      * 升序
      *
-     * @param dataStream
-     *            数据集合
-     * @param compareFunction
-     *            排序字段
-     * @param <T>
-     *            集合类型泛型类
+     * @param dataStream      数据集合
+     * @param compareFunction 排序字段
+     * @param <T>             集合类型泛型类
      * @return List<T>
      */
     public static <T, U extends Comparable<? super U>> List<T> sortedAsc(Stream<T> dataStream,
-        Function<T, U> compareFunction) {
+                                                                         Function<T, U> compareFunction) {
         return sorted(dataStream, compareFunction, SortStrategy.UP, SortNullStrategy.NULL_IGNORE);
     }
 
     /**
      * 升序
      *
-     * @param dataSources
-     *            数据集合
-     * @param compareFunction
-     *            排序字段
-     * @param sortNullStrategy
-     *            排序控制策略
-     * @param <T>
-     *            集合类型泛型类
+     * @param dataSources      数据集合
+     * @param compareFunction  排序字段
+     * @param sortNullStrategy 排序控制策略
+     * @param <T>              集合类型泛型类
      * @return List<T>
      */
     public static <T, U extends Comparable<? super U>> List<T> sortedAsc(List<T> dataSources,
-        Function<T, U> compareFunction, SortNullStrategy sortNullStrategy) {
+                                                                         Function<T, U> compareFunction, SortNullStrategy sortNullStrategy) {
         return sorted(newStream(dataSources), compareFunction, SortStrategy.UP, sortNullStrategy);
     }
 
     /**
      * 升序
      *
-     * @param dataStream
-     *            数据集合
-     * @param compareFunction
-     *            排序字段
-     * @param <T>
-     *            集合类型泛型类
+     * @param dataStream      数据集合
+     * @param compareFunction 排序字段
+     * @param <T>             集合类型泛型类
      * @return List<T>
      */
     public static <T, U extends Comparable<? super U>> List<T> sortedAsc(Stream<T> dataStream,
-        Function<T, U> compareFunction, SortNullStrategy sortNullStrategy) {
+                                                                         Function<T, U> compareFunction, SortNullStrategy sortNullStrategy) {
         return sorted(dataStream, compareFunction, SortStrategy.UP, sortNullStrategy);
     }
 
     /**
      * 降序
      *
-     * @param dataSources
-     *            数据集合
-     * @param compareFunction
-     *            排序字段
-     * @param <T>
-     *            集合类型泛型类
+     * @param dataSources     数据集合
+     * @param compareFunction 排序字段
+     * @param <T>             集合类型泛型类
      * @return List<T>
      */
     public static <T, U extends Comparable<? super U>> List<T> sortedDesc(List<T> dataSources,
-        Function<T, U> compareFunction) {
+                                                                          Function<T, U> compareFunction) {
         return sorted(newStream(dataSources), compareFunction, SortStrategy.DOWN, SortNullStrategy.NULL_IGNORE);
     }
 
     /**
      * 降序
      *
-     * @param dataStream
-     *            数据集合
-     * @param compareFunction
-     *            排序字段
-     * @param <T>
-     *            集合类型泛型类
+     * @param dataStream      数据集合
+     * @param compareFunction 排序字段
+     * @param <T>             集合类型泛型类
      * @return List<T>
      */
     public static <T, U extends Comparable<? super U>> List<T> sortedDesc(Stream<T> dataStream,
-        Function<T, U> compareFunction) {
+                                                                          Function<T, U> compareFunction) {
         return sorted(dataStream, compareFunction, SortStrategy.DOWN, SortNullStrategy.NULL_IGNORE);
     }
 
     /**
      * 降序
      *
-     * @param dataSources
-     *            数据集合
-     * @param compareFunction
-     *            排序字段
-     * @param <T>
-     *            集合类型泛型类
+     * @param dataSources     数据集合
+     * @param compareFunction 排序字段
+     * @param <T>             集合类型泛型类
      * @return List<T>
      */
     public static <T, U extends Comparable<? super U>> List<T> sortedDesc(List<T> dataSources,
-        Function<T, U> compareFunction, SortNullStrategy sortNullStrategy) {
+                                                                          Function<T, U> compareFunction, SortNullStrategy sortNullStrategy) {
         return sorted(newStream(dataSources), compareFunction, SortStrategy.DOWN, sortNullStrategy);
     }
 
     /**
      * 降序
      *
-     * @param dataStream
-     *            数据集合
-     * @param compareFunction
-     *            排序字段
-     * @param <T>
-     *            集合类型泛型类
+     * @param dataStream      数据集合
+     * @param compareFunction 排序字段
+     * @param <T>             集合类型泛型类
      * @return List<T>
      */
     public static <T, U extends Comparable<? super U>> List<T> sortedDesc(Stream<T> dataStream,
-        Function<T, U> compareFunction, SortNullStrategy sortNullStrategy) {
+                                                                          Function<T, U> compareFunction, SortNullStrategy sortNullStrategy) {
         return sorted(dataStream, compareFunction, SortStrategy.DOWN, sortNullStrategy);
     }
 
@@ -1254,20 +1044,15 @@ public final class EnhanceStream<T> {
     }
 
     /**
-     * @param dataStream
-     *            数据集合
-     * @param compareFunction
-     *            排序字段
-     * @param sortStrategy
-     *            排序策略
-     * @param sortStrategy
-     *            true报异常
-     * @param <T>
-     *            集合类型泛型类
+     * @param dataStream      数据集合
+     * @param compareFunction 排序字段
+     * @param sortStrategy    排序策略
+     * @param sortStrategy    true报异常
+     * @param <T>             集合类型泛型类
      * @return List<T>
      */
     private static <T, U extends Comparable<? super U>> List<T> sorted(Stream<T> dataStream,
-        Function<T, U> compareFunction, SortStrategy sortStrategy, SortNullStrategy sortNullStrategy) {
+                                                                       Function<T, U> compareFunction, SortStrategy sortStrategy, SortNullStrategy sortNullStrategy) {
         Comparator<T> comparing;
         if (Objects.isNull(sortStrategy) || SortStrategy.UP == sortStrategy) {
             if (sortNullStrategy == SortNullStrategy.NULL_LAST) {
@@ -1351,7 +1136,7 @@ public final class EnhanceStream<T> {
     }
 
     public static <T> T[] listToArr(List<T> dataList) {
-        return (T[])dataList.toArray(new Object[0]);
+        return (T[]) dataList.toArray(new Object[0]);
     }
 
     public static <T> List<T> arrToList(T[] dataList) {
@@ -1360,18 +1145,13 @@ public final class EnhanceStream<T> {
 
     /**
      * 对Map结构的数据value进行函数转换
-     * 
-     * @param map
-     *            map数据
-     * @param func
-     *            转换函数
+     *
+     * @param map  map数据
+     * @param func 转换函数
+     * @param <K>  泛型key
+     * @param <V1> 转换前的泛型value
+     * @param <V>  转换后的泛型value
      * @return 转换后的Map
-     * @param <K>
-     *            泛型key
-     * @param <V1>
-     *            转换前的泛型value
-     * @param <V>
-     *            转换后的泛型value
      */
     public static <K, V1, V> Map<K, V> mapValue(Map<K, V1> map, Function<V1, V> func) {
         Map<K, V> result = new HashMap<>(isEmpty(map) ? 8 : map.size());
@@ -1386,17 +1166,12 @@ public final class EnhanceStream<T> {
     /**
      * 对Map结构的数据value进行函数转换
      *
-     * @param map
-     *            map数据
-     * @param func
-     *            转换函数
+     * @param map  map数据
+     * @param func 转换函数
+     * @param <V>  泛型value
+     * @param <K1> 转换前的泛型key
+     * @param <K>  转换后的泛型key
      * @return 转换后的Map
-     * @param <V>
-     *            泛型value
-     * @param <K1>
-     *            转换前的泛型key
-     * @param <K>
-     *            转换后的泛型key
      */
     public static <K1, K, V> Map<K, V> mapKey(Map<K1, V> map, Function<K1, K> func) {
         Map<K, V> result = new HashMap<>(isEmpty(map) ? 8 : map.size());

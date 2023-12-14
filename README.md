@@ -257,3 +257,29 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 **1.0.10-RELEASE**
 
 - @Repeat增加headValue属性,支持从请求头中获取幂等键（不支持el表达式）
+
+
+**1.0.11-RELEASE**
+
+- 修复 1.0.10自动化配置失效问题
+- 新增 Banner 打印防重模式,RedisCache Or LocalMapCache 
+```RedisCache
+ _____                      _        
+/__   \___  _ __ ___   __ _| |_ ___  
+  / /\/ _ \| '_ ` _ \ / _` | __/ _ \ 
+ / / | (_) | | | | | | (_| | || (_) |
+ \/   \___/|_| |_| |_|\__,_|\__\___/ (Mode: RedisCache)                 
+
+ :: Tomato ::                   (v1.0.11-RELEASE) 
+
+```
+
+``` LocalMapCache
+ _____                      _        
+/__   \___  _ __ ___   __ _| |_ ___  
+  / /\/ _ \| '_ ` _ \ / _` | __/ _ \ 
+ / / | (_) | | | | | | (_| | || (_) |
+ \/   \___/|_| |_| |_|\__,_|\__\___/ (Mode: LocalMapCache)                 
+
+ :: Tomato ::                   (v1.0.11-RELEASE) 
+```

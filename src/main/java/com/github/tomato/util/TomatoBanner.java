@@ -28,25 +28,26 @@ public class TomatoBanner {
             " / / | (_) | | | | | | (_| | || (_) |\n" +
             " \\/   \\___/|_| |_| |_|\\__,_|\\__\\___/ ";
 
-    public static void print() {
-        printVersion();
+    public static void print(String type) {
+        printVersion(type);
     }
+
 
     /**
      * 打印版本号
      */
-    private static void printVersion() {
+    private static void printVersion(String type) {
         System.out.println();
         PrintStream printStream = System.out;
         String version = TomatoBanner.getVersion();
-        version = version != null ? " (v" + version + ")" : "";
+        version = version != null ? " (v" + version + ") " : "";
         StringBuilder padding = new StringBuilder();
 
         while (padding.length() < 42 - (version.length() + NAME.length())) {
             padding.append(" ");
         }
 
-        printStream.println(AnsiOutput.toString(new Object[]{AnsiColor.BRIGHT_RED, DEFAULT_BANNER, AnsiColor.DEFAULT, padding.toString(), AnsiStyle.FAINT}));
+        printStream.println(AnsiOutput.toString(new Object[]{AnsiColor.BRIGHT_RED, DEFAULT_BANNER + "     (Mode: " + type + ")", AnsiColor.DEFAULT, padding.toString(), AnsiStyle.FAINT}));
         printStream.println();
         printStream.println(AnsiOutput.toString(new Object[]{AnsiColor.GREEN, " :: Tomato :: ", AnsiColor.DEFAULT, padding.toString(), AnsiStyle.FAINT, version}));
         printStream.println();
@@ -58,11 +59,11 @@ public class TomatoBanner {
      * @return String
      */
     private static String getVersion() {
-        String implementationVersion = Banner.class.getPackage().getImplementationVersion();
+        String implementationVersion = TomatoBanner.class.getPackage().getImplementationVersion();
         if (implementationVersion != null) {
             return implementationVersion;
         } else {
-            CodeSource codeSource = Banner.class.getProtectionDomain().getCodeSource();
+            CodeSource codeSource = TomatoBanner.class.getProtectionDomain().getCodeSource();
             if (codeSource == null) {
                 return null;
             } else {

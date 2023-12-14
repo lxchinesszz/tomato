@@ -3,13 +3,11 @@ package com.github.tomato.configuration;
 import com.github.tomato.core.*;
 import com.github.tomato.support.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +20,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @Configuration
-@ConditionalOnClass(RedisAutoConfiguration.class)
 public class TomatoAutoConfiguration {
 
-    @Bean
-    @ConditionalOnBean(Idempotent.class)
-    public TomatoStartListener listener() {
-        return new TomatoStartListener();
-    }
 
     /**
      * 如果项目中是具备了Redis的能力,会自动启动分布式的幂等能力
@@ -38,8 +30,8 @@ public class TomatoAutoConfiguration {
      * @return Idempotent
      */
     @Bean
-    @ConditionalOnBean(StringRedisTemplate.class)
-    public Idempotent idempotent(StringRedisTemplate redisTemplate) {
+    @ConditionalOnProperty(prefix = "spring.redis", name = "host")
+    public Idempotent redisIdempotent(StringRedisTemplate redisTemplate) {
         return new RedisIdempotentTemplate(redisTemplate);
     }
 
@@ -51,14 +43,16 @@ public class TomatoAutoConfiguration {
      * @return Idempotent
      */
     @Bean
-    @ConditionalOnMissingBean(StringRedisTemplate.class)
-    public Idempotent idempotent() {
+    @ConditionalOnProperty(name = "spring.redis.host", matchIfMissing = true)
+    @ConditionalOnMissingBean(Idempotent.class)
+    public Idempotent localIdempotent() {
         return new LocalCacheIdempotentTemplate();
     }
 
     /**
      * 如果已经存在实现bean就不默认实现
      * 当缺少web环境就注册默认的,默认的实现不处理http head
+     *
      * @return TokenProviderSupport
      */
     @Bean
@@ -71,6 +65,7 @@ public class TomatoAutoConfiguration {
     /**
      * 如果已经存在实现bean就不默认实现
      * 如果是web项目,则处理http head
+     *
      * @return TokenProviderSupport
      */
     @Bean
@@ -107,4 +102,9 @@ public class TomatoAutoConfiguration {
         return new TomatoV2Interceptor(idempotent, tokenProviderSupport, repeatToInterceptSupport);
     }
 
+    @Bean
+    @ConditionalOnBean({Idempotent.class})
+    public TomatoStartListener listener(Idempotent idempotent) {
+        return new TomatoStartListener(idempotent);
+    }
 }

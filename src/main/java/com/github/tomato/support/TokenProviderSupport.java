@@ -28,7 +28,6 @@ public interface TokenProviderSupport {
      * @param method 执行方法
      * @param args   方法参数
      * @return String
-     * @throws Exception
      */
     default String findTomatoHeadToken(Method method, Object[] args) throws Exception {
         return null;

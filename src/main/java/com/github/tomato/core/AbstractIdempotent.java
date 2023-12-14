@@ -137,6 +137,7 @@ public abstract class AbstractIdempotent implements Idempotent {
      * 删除key
      *
      * @param uniqueToken 加密后的唯一键
+     * @return boolean
      */
     public abstract boolean delKey(String uniqueToken);
 }
