@@ -22,7 +22,6 @@
         <gpg.executable>gpg</gpg.executable>
         <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
         <maven.test.skip>true</maven.test.skip>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
 
     <licenses>
