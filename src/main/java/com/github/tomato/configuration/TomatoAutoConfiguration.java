@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +31,19 @@ public class TomatoAutoConfiguration {
     @Bean
     @ConditionalOnProperty(prefix = "spring.redis", name = "host")
     public Idempotent redisIdempotent(StringRedisTemplate redisTemplate) {
+        return new RedisIdempotentTemplate(redisTemplate);
+    }
+
+    /**
+     * 兼容 springboot3 版本
+     *
+     * @param redisTemplate redis模板类
+     * @return Idempotent
+     */
+    @Bean
+    @ConditionalOnProperty(prefix = "spring.data.redis", name = "host")
+    @ConditionalOnMissingBean(Idempotent.class)
+    public Idempotent redisIdempotentV3(StringRedisTemplate redisTemplate) {
         return new RedisIdempotentTemplate(redisTemplate);
     }
 

@@ -283,3 +283,7 @@ implementation 'com.github.lxchinesszz:tomato-spring-boot-starter:1.0.1.RELEASE'
 
  :: Tomato ::                   (v1.0.11-RELEASE) 
 ```
+
+**1.0.12-RELEASE**
+
+- 支持 springboot3.0 自动化配置，同时向下兼容
