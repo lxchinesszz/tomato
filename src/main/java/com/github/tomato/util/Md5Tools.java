@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * 1.update 2024-01-13
  * @author liuxin
  * 2019-12-29 22:36
  */

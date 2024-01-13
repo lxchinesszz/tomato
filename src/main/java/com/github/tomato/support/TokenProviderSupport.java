@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 /**
  * Token生成器
  * 允许开发者自定以自己的token生成器
- *
+ * 1.update 2024-01-13
  * @author liuxin
  * 2020-01-03 22:29
  */

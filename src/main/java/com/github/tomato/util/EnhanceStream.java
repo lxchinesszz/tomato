@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 /**
  * 使用用法包含在单侧里面 旨在减少代码开发量
+ * 1.update 2024-01-13
  *
  * @author liuxin
  */

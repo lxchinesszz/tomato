@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 用于解析Controller中的请求信息将,不同的请求转换成指定的枚举
  * eg: 基本类型、对象类型、HttpRequest类型
+ * 1.update 2024-01-13
  * @author liuxin
  * 2020-01-04 21:14
  */

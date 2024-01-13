@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 /**
  * 如果需要处理拦截的请求,给出特殊的返回值,可以实现这个接口
- *
+ * 1.update 2024-01-13
  * @author liuxin
  * 2020-01-04 22:03
  * @see RepeatToInterceptSupport

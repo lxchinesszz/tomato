@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 基于线程的上下文工具,用于获取每个线程中的幂等建键息
- *
+ * 1.update 2024-01-13
  * @author liuxin
  * 2020-01-04 22:11
  * @version 1.0.10 版本使用阿里ThreadLocal解决线程池环境下的使用安全

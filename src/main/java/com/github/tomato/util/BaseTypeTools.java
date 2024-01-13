@@ -1,7 +1,7 @@
 package com.github.tomato.util;
 
 /**
- * 用于判断基本类型
+ * 用于判断基本类型 update 2024-01-13
  *
  * @author liuxin
  * 2020-01-03 22:33
