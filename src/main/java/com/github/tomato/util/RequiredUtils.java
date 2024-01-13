@@ -1,6 +1,5 @@
 package com.github.tomato.util;
 
-import com.scm.common.exception.BusinessException;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -28,8 +27,7 @@ public final class RequiredUtils {
     /**
      * 唯一的示例方法,目的使用通用的异常
      *
-     * @param supplier
-     *            异常函数
+     * @param supplier 异常函数
      * @return Optionals
      */
     public static RequiredUtils ofException(Supplier<ExDefinition> supplier) {
@@ -39,12 +37,9 @@ public final class RequiredUtils {
     /**
      * 静态方法提供设置默认值,不抛出异常
      *
-     * @param value
-     *            预期值
-     * @param other
-     *            默认值
-     * @param <T>
-     *            值类型
+     * @param value 预期值
+     * @param other 默认值
+     * @param <T>   值类型
      * @return T
      */
     public static <T> T orElse(T value, T other) {
@@ -58,12 +53,9 @@ public final class RequiredUtils {
     /**
      * 静态方法,获取预期值,如果预期值为null,就报错
      *
-     * @param value
-     *            预期值
-     * @param exceptionSupplier
-     *            指定异常
-     * @param <T>
-     *            预期值类型
+     * @param value             预期值
+     * @param exceptionSupplier 指定异常
+     * @param <T>               预期值类型
      * @return T 预期值
      */
     public static <T> T getRequired(T value, Supplier<ExDefinition> exceptionSupplier) {
@@ -79,12 +71,9 @@ public final class RequiredUtils {
     /**
      * 静态方法,获取预期值,如果预期值为null,就报错
      *
-     * @param value
-     *            预期值
-     * @param commonErrorEnum
-     *            指定异常
-     * @param <T>
-     *            预期值类型
+     * @param value           预期值
+     * @param commonErrorEnum 指定异常
+     * @param <T>             预期值类型
      * @return T 预期值
      */
     public static <T> T getRequired(T value, CommonErrorEnum commonErrorEnum) {
@@ -99,12 +88,9 @@ public final class RequiredUtils {
     /**
      * 静态方法,获取预期值,如果预期值为null,就报错
      *
-     * @param value
-     *            预期值
-     * @param commonErrorEnum
-     *            指定异常
-     * @param <T>
-     *            预期值类型
+     * @param value           预期值
+     * @param commonErrorEnum 指定异常
+     * @param <T>             预期值类型
      * @return T 预期值
      */
     public static <T> T getRequired(T value, CommonErrorEnum commonErrorEnum, Object... errArgs) {
@@ -119,10 +105,8 @@ public final class RequiredUtils {
     /**
      * 静态方法,获取预期值,如果预期值为null,就报错
      *
-     * @param value
-     *            预期值
-     * @param <T>
-     *            预期值类型
+     * @param value 预期值
+     * @param <T>   预期值类型
      * @return T 预期值
      */
     public static <T> T getRequired(T value) {
@@ -136,10 +120,8 @@ public final class RequiredUtils {
     /**
      * 实例方法,获取预期值,如果预期值为null,就报错
      *
-     * @param value
-     *            预期值
-     * @param <T>
-     *            预期值类型
+     * @param value 预期值
+     * @param <T>   预期值类型
      * @return T 预期值
      */
     public <T> T getRequiredThrows(T value) {
