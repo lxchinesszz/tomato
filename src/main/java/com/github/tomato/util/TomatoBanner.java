@@ -1,6 +1,6 @@
 package com.github.tomato.util;
 
-import org.springframework.boot.Banner;
+
 import org.springframework.boot.ansi.AnsiColor;
 import org.springframework.boot.ansi.AnsiOutput;
 import org.springframework.boot.ansi.AnsiStyle;
@@ -16,6 +16,7 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
 /**
+ * https://www.jetbrains.com/shop/eform/opensource
  * 1.update 2024-01-13
  * @author liuxin
  * 2023/2/2 16:20
